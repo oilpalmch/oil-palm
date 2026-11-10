@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>OIL PALM 後台</title>
+<link rel="icon" href="icon-192.png">
+<style>
+:root{--bg:#F4F2EE;--card:#fff;--ink:#22201C;--ink2:#5C574F;--ink3:#8F887C;--rule:#E4DFD6;--acc:#B7791F;--acc2:#8A5A12;--up:#2E7D4F;--dn:#B23B2E;--chip:#F7F1E6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161512;--card:#201E1A;--ink:#EEEAE2;--ink2:#BDB6AA;--ink3:#8C857A;--rule:#34312B;--acc:#E0A64A;--acc2:#F0C27A;--chip:#2A2620}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Segoe UI",sans-serif}
+header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--card);border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:5}
+header img{width:34px;height:34px;border-radius:9px}
+header h1{font-size:17px;margin:0;flex:1}
+header .me{font-size:13px;color:var(--ink3)}
+header select{font:inherit;font-size:13px;padding:6px 8px;border:1px solid var(--rule);border-radius:8px;background:var(--card);color:var(--ink)}
+button{font:inherit;cursor:pointer}
+.btn{background:var(--acc);color:#fff;border:0;border-radius:10px;padding:10px 16px;font-weight:700}
+.btn.line{background:transparent;color:var(--acc2);border:1px solid var(--rule)}
+main{max-width:1240px;margin:0 auto;padding:18px 20px 60px}
+.gate{max-width:420px;margin:12vh auto;background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:28px;text-align:center}
+.gate p{color:var(--ink2)}
+.err{color:var(--dn);min-height:1.4em;margin-top:10px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:14px 16px}
+.kpi small{color:var(--ink3);display:block}
+.kpi b{font-size:24px;font-variant-numeric:tabular-nums}
+.tabs{display:flex;gap:6px;margin:4px 0 14px;flex-wrap:wrap}
+.tabs button{border:1px solid var(--rule);background:var(--card);color:var(--ink2);border-radius:99px;padding:7px 16px}
+.tabs button.on{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:700}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:14px;overflow:auto}
+table{border-collapse:collapse;width:100%;min-width:720px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--rule);white-space:nowrap}
+th{font-size:12px;color:var(--ink3);font-weight:600;background:var(--chip);position:sticky;top:0;cursor:pointer;user-select:none}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.click{cursor:pointer}tr.click:hover td{background:var(--chip)}
+.muted{color:var(--ink3)}
+.bar{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.bar input,.bar select{font:inherit;padding:8px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--card);color:var(--ink);min-width:220px}
+.detail h2{margin:4px 0 2px;font-size:20px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:14px 0}
+.dl{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:14px 16px}
+.dl div{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-bottom:1px dashed var(--rule)}
+.dl div:last-child{border-bottom:0}
+.dl span{color:var(--ink3)}
+h3{margin:18px 0 8px;font-size:15px}
+@media (max-width:760px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:1fr}header .me{display:none}main{padding:14px 16px 50px}}
+</style>
+</head>
+<body>
+<header><img src="icon-192.png" alt=""><h1 id="ttl"></h1><span class="me" id="me"></span><select id="lang" aria-label="Language"><option value="zh">简体中文</option><option value="ms">Bahasa Melayu</option><option value="en">English</option></select><button class="btn line" id="out" hidden></button></header>
+<main id="main"></main>
+<script src="fb-app.js"></script>
+<script src="fb-auth.js"></script>
+<script src="fb-store.js"></script>
+<script>
+(function(){
+"use strict";
+var FB_CONFIG={"apiKey": "AIzaSyDU_eu1m-VFZ9HwMM6oscqEMAolX0y_U-w", "authDomain": "oil-palm-a1925.firebaseapp.com", "projectId": "oil-palm-a1925", "storageBucket": "oil-palm-a1925.firebasestorage.app", "messagingSenderId": "989453427099", "appId": "1:989453427099:web:373e70cdb80b33d1ce013e"};      // build-www.py 放進來
+var ADMIN="oilpalmch@gmail.com";
+var DICT={" 包": [" 包", " beg", " bags"], " 包 · ": [" 包 · ", " beg · ", " bags · "], " 包數": [" 包数", " bilangan beg", " bags"], " 噸": [" 吨", " tan", " t"], " 年收入（月結單）": [" 年收入（月结单）", " pendapatan (penyata)", " income (statements)"], " 年賣果": [" 年卖果", " jualan buah", " fruit sold"], " 收入": [" 收入", " pendapatan", " income"], " 放了幾輪": [" 放了几轮", " pusingan baja", " rounds done"], " 果價 RM ": [" 果价 RM ", " harga RM ", " price RM "], " 次 · ": [" 次 · ", " · ", " · "], " 筆": [" 笔", " rekod", " records"], " 肥料錢": [" 肥料钱", " kos baja", " fertiliser cost"], " 賣果（噸）": [" 卖果（吨）", " jualan (tan)", " sold (t)"], " 開銷": [" 开销", " perbelanjaan", " costs"], "OIL PALM 後台": ["OIL PALM 后台", "OIL PALM Pentadbir", "OIL PALM Admin"], "‹ 回列表": ["‹ 回列表", "‹ Kembali", "‹ Back"], "上次打開": ["上次打开", "Kali terakhir buka", "Last opened"], "來源": ["来源", "Sumber", "Source"], "依格": ["依格", "relong", "relong"], "內容": ["内容", "Butiran", "Details"], "全部記錄": ["全部记录", "Semua rekod", "All records"], "全部賣果（噸）": ["全部卖果（吨）", "Jumlah jualan (tan)", "All-time sold (t)"], "公頃": ["公顷", "hektar", "ha"], "只有管理員的 Google 帳號可以進來。": ["只有管理员的 Google 账号可以进来。", "Hanya akaun Google pentadbir boleh masuk.", "Only the admin Google account can sign in."], "名字": ["名字", "Nama", "Name"], "園主": ["园主", "Pekebun", "Farmer"], "園名": ["园名", "Nama kebun", "Farm"], "土質": ["土质", "Jenis tanah", "Soil"], "地": ["地", "Tanah", "Land"], "地方": ["地方", "Tempat", "Place"], "如果是 permission-denied：Firestore 的 Rules 還沒換成有管理員的那一版。": ["如果是 permission-denied：Firestore 的 Rules 还没换成有管理员的那一版。", "Jika permission-denied: Rules Firestore belum ditukar ke versi pentadbir.", "If it says permission-denied, the Firestore rules have not been updated to the admin version yet."], "年": ["年", "Tahun", "Year"], "打草藥": ["打草药", "Racun", "Spraying"], "搜尋名字、Email、電話、地方": ["搜索名字、Email、电话、地方", "Cari nama, e-mel, telefon, tempat", "Search name, email, phone, place"], "收入（月結單）": ["收入（月结单）", "Pendapatan (penyata)", "Income (statements)"], "收果商": ["收果商", "Pembeli buah", "Buyer"], "放肥": ["放肥", "Baja", "Fertiliser"], "放肥計劃": ["放肥计划", "Pelan baja", "Fertiliser plans"], "放肥資料": ["放肥资料", "Data baja", "Fertiliser"], "數字": ["数字", "Jumlah", "Amount"], "數據": ["数据", "Data", "Data"], "數據（今年）": ["数据（今年）", "Data (tahun ini)", "Data (this year)"], "日期": ["日期", "Tarikh", "Date"], "普通土": ["普通土", "Tanah biasa", "Mineral"], "最常用的肥": ["最常用的肥", "Baja paling kerap", "Most-used fertiliser"], "最近一筆": ["最近一笔", "Rekod terkini", "Latest record"], "月": ["月", "Bulan", "Month"], "月結單": ["月结单", "Penyata", "Statement"], "有": ["有", "Ada", "Yes"], "有沒有計劃": ["有没有计划", "Ada pelan?", "Has plan"], "樹數": ["树数", "Bilangan pokok", "Palms"], "每棵公斤": ["每棵公斤", "kg / pokok", "kg / palm"], "每棵每年公斤": ["每棵每年公斤", "kg / pokok / tahun", "kg / palm / year"], "每畝每年噸數": ["每亩每年吨数", "tan / ekar / tahun", "t / acre / year"], "沒有": ["没有", "Tiada", "No"], "泥炭土": ["泥炭土", "Tanah gambut", "Peat"], "用 Google 登入": ["用 Google 登录", "Log masuk dengan Google", "Sign in with Google"], "用戶": ["用户", "Pengguna", "Users"], "畝": ["亩", "ekar", "acre"], "看樹": ["看树", "Periksa pokok", "Palm check"], "磅單 ": ["磅单 ", "Tiket ", "Ticket "], "種植年": ["种植年", "Tahun tanam", "Planted"], "種類": ["种类", "Jenis", "Type"], "第 ": ["第 ", "Pusingan ", "Round "], "第幾次": ["第几次", "Pusingan", "Round"], "總樹數": ["总树数", "Jumlah pokok", "Total palms"], "肥料": ["肥料", "Baja", "Fertiliser"], "記錄": ["记录", "Rekod", "Records"], "讀不到資料：": ["读不到资料：", "Tak dapat baca data: ", "Could not read data: "], "賣果": ["卖果", "Jual buah", "Harvest"], "這個帳號（": ["这个账号（", "Akaun ini (", "This account ("], "還沒有計劃": ["还没有计划", "Belum ada pelan", "No plan yet"], "還沒有資料": ["还没有资料", "Belum ada data", "No data yet"], "重新整理": ["刷新", "Muat semula", "Refresh"], "開銷": ["开销", "Perbelanjaan", "Expense"], "雨量地點": ["雨量地点", "Lokasi hujan", "Rain location"], "電話": ["电话", "Telefon", "Phone"], "面積": ["面积", "Keluasan", "Area"], "）不是管理員。": ["）不是管理员。", ") bukan pentadbir.", ") is not the admin."], "載入中…": ["载入中…", "Memuatkan…", "Loading…"], "讀取全部園主的資料…": ["读取全部园主的资料…", "Membaca data semua pekebun…", "Loading all farmers’ data…"], "這個版本沒有接資料庫。": ["这个版本没有接数据库。", "Versi ini tiada pangkalan data.", "This build has no database."], "登出": ["登出", "Log keluar", "Sign out"]};
+var LANG=(function(){ try{ var v=localStorage.getItem("op-admin-lang"); if(v) return v; }catch(e){} var n=(navigator.language||"").toLowerCase(); return n.indexOf("ms")===0?"ms":n.indexOf("en")===0?"en":"zh"; })();
+function L(t){ var r=DICT[t]; return r?r[{zh:0,ms:1,en:2}[LANG]]:t; }
+document.documentElement.lang=LANG==="zh"?"zh-Hans":LANG; document.title=L("OIL PALM 後台");
+var $=function(s){ return document.querySelector(s); };
+$("#ttl").textContent=L("OIL PALM 後台"); $("#out").textContent=L("登出");
+$("#lang").value=LANG; $("#lang").onchange=function(){ try{ localStorage.setItem("op-admin-lang",this.value); }catch(e){} location.reload(); };
+function el(t,c,x){ var e=document.createElement(t); if(c) e.className=c; if(x!=null) e.textContent=x; return e; }
+function num(v){ var n=parseFloat(v); return isFinite(n)?n:0; }
+function fx(n,d){ return num(n).toLocaleString("en-MY",{minimumFractionDigits:d||0,maximumFractionDigits:d||0}); }
+function rm(n){ return "RM "+fx(n,0); }
+var main=$("#main");
+if(!FB_CONFIG){ main.innerHTML=""; var g0=el("div","gate"); g0.appendChild(el("p",null,L("這個版本沒有接資料庫。"))); main.appendChild(g0); return; }
+firebase.initializeApp(FB_CONFIG);
+var auth=firebase.auth(), db=firebase.firestore();
+
+function gate(msg){
+  main.innerHTML="";
+  var g=el("div","gate");
+  g.appendChild(el("h2",null,L("OIL PALM 後台")));
+  g.appendChild(el("p",null,L("只有管理員的 Google 帳號可以進來。")));
+  var b=el("button","btn",L("用 Google 登入")); b.onclick=function(){
+    var p=new firebase.auth.GoogleAuthProvider(); p.setCustomParameters({prompt:"select_account"});
+    auth.signInWithPopup(p).catch(function(e){ err.textContent=String(e&&e.code||e); });
+  };
+  g.appendChild(b);
+  var err=el("div","err",msg||""); g.appendChild(err);
+  main.appendChild(g);
+}
+$("#out").onclick=function(){ auth.signOut(); };
+auth.onAuthStateChanged(function(u){
+  $("#out").hidden=!u; $("#me").textContent=u?(u.email||""):"";
+  if(!u){ gate(); return; }
+  if(String(u.email).toLowerCase()!==ADMIN||!u.emailVerified){ gate(L("這個帳號（")+u.email+L("）不是管理員。")); auth.signOut(); return; }
+  load();
+});
+
+var DATA=null;
+function load(){
+  main.innerHTML=""; var g1=el("div","gate"); g1.appendChild(el("p",null,L("讀取全部園主的資料…"))); main.appendChild(g1);
+  Promise.all([db.collection("users").get(), db.collection("farms").get()]).then(function(res){
+    var users={}; res[0].forEach(function(d){ users[d.id]=d.data(); });
+    var farms=res[1].docs;
+    return Promise.all(farms.map(function(f){
+      var ref=db.collection("farms").doc(f.id);
+      return Promise.all([ref.collection("state").doc("main").get(), ref.collection("records").get()]).then(function(r){
+        var st={}; try{ st=JSON.parse((r[0].data()||{}).j||"{}"); }catch(e){}
+        var recs=[]; r[1].forEach(function(d){ try{ recs.push(JSON.parse(d.data().j)); }catch(e){} });
+        var fm=f.data()||{}, owner=fm.owner||f.id;
+        return {id:f.id, farm:fm, user:users[owner]||{}, st:st, recs:recs};
+      });
+    }));
+  }).then(function(list){
+    DATA=list.map(summarise);
+    show("users");
+  }).catch(function(e){
+    main.innerHTML=""; var g=el("div","gate");
+    g.appendChild(el("p",null,L("讀不到資料：")+String(e&&e.code||e)));
+    g.appendChild(el("p","muted",L("如果是 permission-denied：Firestore 的 Rules 還沒換成有管理員的那一版。")));
+    main.appendChild(g);
+  });
+}
+function plotArea(st){ var p=st.plot||{}; return num(p.area!=null?p.area:p.acres); }
+function unitNm(st){ var u=(st.settings||{}).unit; return u==="ha"?L("公頃"):u==="relong"?L("依格"):L("畝"); }
+function hTon(r){ return r.kg!=null?num(r.kg)/1000:num(r.tonnes); }
+function fertName(st,id){ var fs=st.ferts||[]; for(var i=0;i<fs.length;i++) if(fs[i].id===id) return fs[i].nm; return id||""; }
+function summarise(x){
+  var y=String(new Date().getFullYear()), s={ton:0,tonY:0,income:0,cost:0,fertBags:0,fertRm:0,last:"",n:x.recs.length};
+  x.recs.forEach(function(r){
+    if(r.date&&r.date>s.last) s.last=r.date;
+    var yr=String(r.date||"").slice(0,4);
+    if(r.kind==="harvest"){ s.ton+=hTon(r); if(yr===y) s.tonY+=hTon(r); }
+    if(r.kind==="statement"&&yr===y) s.income+=num(r.net);
+    if(r.kind==="expense"&&yr===y) s.cost+=num(r.amount);
+    if(r.kind==="fert"&&yr===y){ s.fertBags+=num(r.bags); s.fertRm+=num(r.bags)*num(r.priceBag); }
+  });
+  x.sum=s; return x;
+}
+var TABS=[["users",L("用戶")],["data",L("數據")],["land",L("地")],["fert",L("放肥資料")]];
+function show(tab,detail){
+  main.innerHTML="";
+  var all=DATA, y=new Date().getFullYear();
+  var k=el("div","kpis");
+  function kpi(a,b){ var d=el("div","kpi"); d.appendChild(el("small",null,a)); d.appendChild(el("b",null,b)); k.appendChild(d); }
+  var ton=0,inc=0,trees=0; all.forEach(function(x){ ton+=x.sum.tonY; inc+=x.sum.income; trees+=num((x.st.plot||{}).trees); });
+  kpi(L("園主"),fx(all.length)); kpi(y+L(" 年賣果"),fx(ton,1)+L(" 噸")); kpi(y+L(" 年收入（月結單）"),rm(inc)); kpi(L("總樹數"),fx(trees));
+  main.appendChild(k);
+  if(detail){ showDetail(detail); return; }
+  var tabs=el("div","tabs");
+  TABS.forEach(function(t){ var b=el("button",t[0]===tab?"on":"",t[1]); b.onclick=function(){ show(t[0]); }; tabs.appendChild(b); });
+  var rf=el("button",null,L("重新整理")); rf.onclick=load; tabs.appendChild(rf);
+  main.appendChild(tabs);
+  var bar=el("div","bar"), q=el("input"); q.placeholder=L("搜尋名字、Email、電話、地方"); bar.appendChild(q); main.appendChild(bar);
+  var card=el("div","card"); main.appendChild(card);
+  var cols={
+    users:[[L("名字"),function(x){ return x.user.name||(x.st.plot||{}).name||""; }],["Email",function(x){ return x.user.email||""; }],[L("電話"),function(x){ return x.user.phone||""; }],[L("地方"),function(x){ return x.user.town||(x.st.settings||{}).rainPlace||""; }],[L("記錄"),function(x){ return x.sum.n; },1],[L("最近一筆"),function(x){ return x.sum.last; }],[L("上次打開"),function(x){ return String(x.user.seen||"").slice(0,10); }]],
+    data:[[L("園主"),function(x){ return x.user.name||x.user.email||""; }],[y+L(" 賣果（噸）"),function(x){ return fx(x.sum.tonY,2); },1],[L("全部賣果（噸）"),function(x){ return fx(x.sum.ton,2); },1],[y+L(" 收入"),function(x){ return rm(x.sum.income); },1],[y+L(" 開銷"),function(x){ return rm(x.sum.cost); },1],[L("每畝每年噸數"),function(x){ var a=plotArea(x.st); return a?fx(x.sum.tonY/a,2):""; },1],[L("收果商"),function(x){ return (x.st.settings||{}).buyer||""; }]],
+    land:[[L("園主"),function(x){ return x.user.name||x.user.email||""; }],[L("園名"),function(x){ return (x.st.plot||{}).name||""; }],[L("面積"),function(x){ var a=plotArea(x.st); return a?fx(a,1)+" "+unitNm(x.st):""; },1],[L("樹數"),function(x){ return fx((x.st.plot||{}).trees); },1],[L("種植年"),function(x){ return (x.st.plot||{}).year||""; },1],[L("土質"),function(x){ var s=(x.st.plot||{}).soil; return s==="peat"?L("泥炭土"):s?L("普通土"):""; }],[L("雨量地點"),function(x){ return (x.st.settings||{}).rainPlace||""; }]],
+    fert:[[L("園主"),function(x){ return x.user.name||x.user.email||""; }],[y+L(" 放了幾輪"),function(x){ var r={}; x.recs.forEach(function(z){ if(z.kind==="fert"&&String(z.date).slice(0,4)===String(y)) r[z.round]=1; }); return Object.keys(r).length; },1],[y+L(" 包數"),function(x){ return fx(x.sum.fertBags); },1],[y+L(" 肥料錢"),function(x){ return rm(x.sum.fertRm); },1],[L("每棵每年公斤"),function(x){ var t=num((x.st.plot||{}).trees), kg=0; x.recs.forEach(function(z){ if(z.kind==="fert"&&String(z.date).slice(0,4)===String(y)) kg+=num(z.bags)*(num(z.kgBag)||50); }); return t?fx(kg/t,2):""; },1],[L("有沒有計劃"),function(x){ return (x.st.plans||[]).some(function(p){ return String(p.year)===String(y); })?L("有"):L("沒有"); }],[L("最常用的肥"),function(x){ var c={}; x.recs.forEach(function(z){ if(z.kind==="fert") c[z.fert]=(c[z.fert]||0)+num(z.bags); }); var b=Object.keys(c).sort(function(a,bb){ return c[bb]-c[a]; })[0]; return b?fertName(x.st,b):""; }]]
+  }[tab];
+  var sortI=-1, asc=true;
+  function paint(){
+    card.innerHTML=""; var t=el("table"), h=el("tr");
+    cols.forEach(function(c,i){ var th=el("th",c[2]?"n":"",c[0]+(i===sortI?(asc?" ▲":" ▼"):"")); th.onclick=function(){ asc=sortI===i?!asc:true; sortI=i; paint(); }; h.appendChild(th); });
+    t.appendChild(h);
+    var term=q.value.trim().toLowerCase();
+    var rows=all.filter(function(x){ if(!term) return true; return [x.user.name,x.user.email,x.user.phone,x.user.town,(x.st.plot||{}).name].join(" ").toLowerCase().indexOf(term)>=0; });
+    if(sortI>=0) rows.sort(function(a,b){ var A=cols[sortI][1](a), B=cols[sortI][1](b); var nA=parseFloat(String(A).replace(/[^\d.-]/g,"")), nB=parseFloat(String(B).replace(/[^\d.-]/g,"")); var r=(isFinite(nA)&&isFinite(nB))?nA-nB:String(A).localeCompare(String(B)); return asc?r:-r; });
+    rows.forEach(function(x){ var tr=el("tr","click"); cols.forEach(function(c){ tr.appendChild(el("td",c[2]?"n":"",String(c[1](x)))); }); tr.onclick=function(){ show(tab,x); }; t.appendChild(tr); });
+    if(!rows.length){ var tr=el("tr"); var td=el("td","muted",L("還沒有資料")); td.colSpan=cols.length; tr.appendChild(td); t.appendChild(tr); }
+    card.appendChild(t);
+  }
+  q.oninput=paint; paint();
+}
+function showDetail(x){
+  var back=el("button","btn line",L("‹ 回列表")); back.onclick=function(){ show("users"); }; main.appendChild(back);
+  var d=el("div","detail"); main.appendChild(d);
+  d.appendChild(el("h2",null,x.user.name||(x.st.plot||{}).name||x.user.email||x.id));
+  d.appendChild(el("div","muted",[x.user.email,x.user.phone,x.user.town].filter(Boolean).join(" · ")));
+  var g=el("div","grid2"); d.appendChild(g);
+  function dl(title,pairs){ var b=el("div","dl"); b.appendChild(el("h3",null,title)); pairs.forEach(function(p){ var r=el("div"); r.appendChild(el("span",null,p[0])); r.appendChild(el("b",null,p[1]==null||p[1]===""?"—":String(p[1]))); b.appendChild(r); }); g.appendChild(b); }
+  var p=x.st.plot||{}, st=x.st.settings||{};
+  dl(L("地"),[[L("園名"),p.name],[L("面積"),plotArea(x.st)?fx(plotArea(x.st),1)+" "+unitNm(x.st):""],[L("樹數"),p.trees],[L("種植年"),p.year],[L("土質"),p.soil==="peat"?L("泥炭土"):p.soil?L("普通土"):""],[L("雨量地點"),st.rainPlace]]);
+  dl(L("數據（今年）"),[[L("賣果"),fx(x.sum.tonY,2)+L(" 噸")],[L("收入（月結單）"),rm(x.sum.income)],[L("開銷"),rm(x.sum.cost)],[L("肥料"),fx(x.sum.fertBags)+L(" 包 · ")+rm(x.sum.fertRm)],[L("收果商"),st.buyer],[L("全部記錄"),x.sum.n+L(" 筆")]]);
+  d.appendChild(el("h3",null,L("放肥計劃")));
+  var plans=x.st.plans||[];
+  if(!plans.length) d.appendChild(el("div","muted",L("還沒有計劃")));
+  plans.slice().sort(function(a,b){ return String(b.year).localeCompare(String(a.year)); }).forEach(function(pl){
+    var c=el("div","card"), t=el("table"); var h=el("tr"); [L("年"),L("第幾次"),L("月"),L("肥料"),L("每棵公斤"),L("來源")].forEach(function(n){ h.appendChild(el("th",null,n)); }); t.appendChild(h);
+    (pl.rounds||[]).forEach(function(r,i){ (r.items||[{fert:r.fert,kg:r.kg}]).forEach(function(it){ var tr=el("tr"); [pl.year,i+1,r.month||r.m||"",fertName(x.st,it.fert||it.id),it.kg||it.kgTree||"",pl.src||""].forEach(function(v){ tr.appendChild(el("td",null,String(v==null?"":v))); }); t.appendChild(tr); }); });
+    c.appendChild(t); d.appendChild(c); c.style.marginBottom="10px";
+  });
+  d.appendChild(el("h3",null,L("全部記錄")));
+  var KN={harvest:L("賣果"),statement:L("月結單"),expense:L("開銷"),fert:L("放肥"),spray:L("打草藥"),diag:L("看樹")};
+  var c=el("div","card"), t=el("table"), h=el("tr");
+  [L("日期"),L("種類"),L("內容"),L("數字")].forEach(function(n,i){ h.appendChild(el("th",i===3?"n":"",n)); }); t.appendChild(h);
+  x.recs.slice().sort(function(a,b){ return String(b.date).localeCompare(String(a.date)); }).forEach(function(r){
+    var what="", v="";
+    if(r.kind==="harvest"){ what=r.slip?L("磅單 ")+r.slip:""; v=fx(hTon(r),2)+L(" 噸"); }
+    else if(r.kind==="statement"){ what=(r.month||"")+L(" 果價 RM ")+fx(r.price,2); v=rm(r.net); }
+    else if(r.kind==="expense"){ what=(r.cat||"")+(r.note?" · "+r.note:""); v=rm(r.amount); }
+    else if(r.kind==="fert"){ what=L("第 ")+(r.round||"?")+L(" 次 · ")+fertName(x.st,r.fert); v=fx(r.bags)+L(" 包"); }
+    else { what=r.note||r.herb||r.sym||""; v=""; }
+    var tr=el("tr"); [r.date||"",KN[r.kind]||r.kind,what,v].forEach(function(val,i){ tr.appendChild(el("td",i===3?"n":"",String(val))); }); t.appendChild(tr);
+  });
+  c.appendChild(t); d.appendChild(c);
+}
+})();
+</script>
+</body>
+</html>
