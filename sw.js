@@ -2,7 +2,7 @@
    App 本身（index.html、圖示）存起來，芭裡沒訊號也打得開；
    天氣、AI 這些要網路的照常走網路，不快取。 */
 var CACHE = "oilpalm-43";
-var CORE = ["./", "index.html", "manifest.webmanifest", "icon-180.png", "icon-192.png", "icon-512.png", "fb-app.js", "fb-auth.js", "fb-store.js"];
+var CORE = ["./", "index.html", "manifest.webmanifest", "icon-180.png", "icon-192.png", "icon-512.png", "welcome-wide.jpg", "fb-app.js", "fb-auth.js", "fb-store.js"];
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(CORE); }));
 });
