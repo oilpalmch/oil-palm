@@ -75,6 +75,7 @@ var main=$("#main");
 if(!FB_CONFIG){ main.innerHTML=""; var g0=el("div","gate"); g0.appendChild(el("p",null,L("這個版本沒有接資料庫。"))); main.appendChild(g0); return; }
 firebase.initializeApp(FB_CONFIG);
 var auth=firebase.auth(), db=firebase.firestore();
+main.innerHTML=""; (function(){ var g=el("div","gate"); g.appendChild(el("p",null,L("載入中…"))); main.appendChild(g); })();
 
 function gate(msg){
   main.innerHTML="";
