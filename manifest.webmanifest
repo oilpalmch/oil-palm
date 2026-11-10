@@ -1,0 +1,32 @@
+{
+ "name": "OIL PALM管理",
+ "short_name": "OIL PALM",
+ "description": "油棕園管理：記賣果、教放肥、看雨量。",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#F2E6D3",
+ "theme_color": "#5B3A1E",
+ "lang": "zh-Hans",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
