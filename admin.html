@@ -1,57 +1,166 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-Hans">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>OIL PALM 後台</title>
+<meta name="color-scheme" content="light">
+<title>OIL PALM ERP</title>
 <link rel="icon" href="icon-192.png">
 <style>
-:root{--bg:#F4F2EE;--card:#fff;--ink:#22201C;--ink2:#5C574F;--ink3:#8F887C;--rule:#E4DFD6;--acc:#B7791F;--acc2:#8A5A12;--up:#2E7D4F;--dn:#B23B2E;--chip:#F7F1E6}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161512;--card:#201E1A;--ink:#EEEAE2;--ink2:#BDB6AA;--ink3:#8C857A;--rule:#34312B;--acc:#E0A64A;--acc2:#F0C27A;--chip:#2A2620}}
+:root{
+  --side:#15202B;--side2:#1E2B39;--sideink:#C7D1DB;--sideink2:#7D8B99;
+  --bg:#F2F4F7;--card:#FFFFFF;--ink:#1C2632;--ink2:#55606D;--ink3:#8893A0;--rule:#E1E6EB;--head:#F7F8FA;
+  --acc:#C47F14;--accs:#FDF3E1;--up:#23855F;--ups:#E3F4EC;--dn:#D0503A;--dns:#FCE8E3;--blue:#2E6BD8;--blues:#E7EFFC;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Segoe UI",sans-serif}
-header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--card);border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:5}
-header img{width:34px;height:34px;border-radius:9px}
-header h1{font-size:17px;margin:0;flex:1}
-header .me{font-size:13px;color:var(--ink3)}
-header select{font:inherit;font-size:13px;padding:6px 8px;border:1px solid var(--rule);border-radius:8px;background:var(--card);color:var(--ink)}
-button{font:inherit;cursor:pointer}
-.btn{background:var(--acc);color:#fff;border:0;border-radius:10px;padding:10px 16px;font-weight:700}
-.btn.line{background:transparent;color:var(--acc2);border:1px solid var(--rule)}
-main{max-width:1240px;margin:0 auto;padding:18px 20px 60px}
-.gate{max-width:420px;margin:12vh auto;background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:28px;text-align:center}
-.gate p{color:var(--ink2)}
-.err{color:var(--dn);min-height:1.4em;margin-top:10px}
-.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
-.kpi{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:14px 16px}
-.kpi small{color:var(--ink3);display:block}
-.kpi b{font-size:24px;font-variant-numeric:tabular-nums}
-.tabs{display:flex;gap:6px;margin:4px 0 14px;flex-wrap:wrap}
-.tabs button{border:1px solid var(--rule);background:var(--card);color:var(--ink2);border-radius:99px;padding:7px 16px}
-.tabs button.on{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:700}
-.card{background:var(--card);border:1px solid var(--rule);border-radius:14px;overflow:auto}
-table{border-collapse:collapse;width:100%;min-width:720px}
-th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--rule);white-space:nowrap}
-th{font-size:12px;color:var(--ink3);font-weight:600;background:var(--chip);position:sticky;top:0;cursor:pointer;user-select:none}
-td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
-tr.click{cursor:pointer}tr.click:hover td{background:var(--chip)}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC","Segoe UI",Roboto,sans-serif}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+.num{font-variant-numeric:tabular-nums}
+.app{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh}
+.side{background:var(--side);color:var(--sideink);display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.brand{display:flex;align-items:center;gap:10px;padding:18px 18px 16px;border-bottom:1px solid #26343F}
+.brand img{width:32px;height:32px;border-radius:8px}
+.brand b{display:block;color:#fff;font-size:15px;letter-spacing:.3px}
+.brand small{color:var(--sideink2);font-size:11px;letter-spacing:.6px;text-transform:uppercase}
+.nav{padding:12px 10px;flex:1;overflow:auto}
+.nav .grp{color:var(--sideink2);font-size:11px;letter-spacing:.8px;text-transform:uppercase;padding:12px 10px 6px}
+.nav button{display:flex;align-items:center;gap:11px;width:100%;border:0;background:none;color:var(--sideink);padding:9px 10px;border-radius:8px;text-align:left;font-size:14px}
+.nav button svg{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
+.nav button:hover{background:var(--side2);color:#fff}
+.nav button.on{background:var(--acc);color:#fff;font-weight:600}
+.nav button .ct{margin-left:auto;font-size:11px;background:#2A3947;color:var(--sideink);padding:1px 7px;border-radius:99px}
+.nav button.on .ct{background:rgba(255,255,255,.25);color:#fff}
+.sidefoot{padding:12px 14px;border-top:1px solid #26343F;font-size:12px}
+.sidefoot select{width:100%;background:var(--side2);border:1px solid #2D3C4A;color:var(--sideink);border-radius:7px;padding:6px 8px;margin-bottom:10px}
+.who{display:flex;align-items:center;gap:8px;color:var(--sideink2);overflow:hidden}
+.who .av{width:26px;height:26px;border-radius:99px;background:var(--acc);color:#fff;display:grid;place-items:center;font-weight:700;font-size:12px;flex:none}
+.who span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.who button{border:0;background:none;color:var(--sideink2);font-size:12px;padding:2px 4px}
+.who button:hover{color:#fff}
+.main{min-width:0;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;gap:12px;padding:12px 24px;background:var(--card);border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:4}
+.crumb{flex:1;min-width:0}
+.crumb small{display:block;color:var(--ink3);font-size:12px}
+.crumb h1{margin:0;font-size:18px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.search{position:relative}
+.search input{width:280px;border:1px solid var(--rule);background:var(--head);border-radius:8px;padding:8px 10px 8px 32px}
+.search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--ink3);fill:none;stroke-width:2}
+.tbtn{border:1px solid var(--rule);background:var(--card);border-radius:8px;padding:7px 12px;display:inline-flex;align-items:center;gap:6px;color:var(--ink2);white-space:nowrap}
+.tbtn:hover{border-color:#C9D1D9;color:var(--ink)}
+.tbtn.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+.tbtn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.upd{color:var(--ink3);font-size:12px;white-space:nowrap}
+.content{padding:20px 24px 48px;max-width:1440px;width:100%}
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:14px 16px;min-width:0}
+.kpi small{color:var(--ink3);font-size:12px;display:block}
+.kpi b{display:block;font-size:22px;font-weight:700;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi i{font-style:normal;font-size:12px;color:var(--ink3)}
+.panel{background:var(--card);border:1px solid var(--rule);border-radius:10px;margin-bottom:16px;min-width:0}
+.ph{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.ph h2{margin:0;font-size:14px;font-weight:700;flex:1}
+.ph .sub{color:var(--ink3);font-size:12px}
+.pb{padding:14px 16px}
+.grid2{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px}
+.grid2 .panel{margin-bottom:0}
+.row{margin-bottom:16px}
+.tw{overflow:auto}
+table{border-collapse:separate;border-spacing:0;width:100%}
+th,td{padding:9px 14px;border-bottom:1px solid var(--rule);text-align:left;white-space:nowrap}
+th{background:var(--head);color:var(--ink2);font-size:12px;font-weight:600;position:sticky;top:0;user-select:none}
+th.s{cursor:pointer}th.s:hover{color:var(--ink)}
+th .ar{color:var(--acc);margin-left:4px}
+td.r,th.r{text-align:right}
+tbody tr:hover td{background:#FAFBFC}
+tbody tr.ck{cursor:pointer}
+tbody tr.ck:hover td{background:var(--accs)}
 .muted{color:var(--ink3)}
-.bar{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
-.bar input,.bar select{font:inherit;padding:8px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--card);color:var(--ink);min-width:220px}
-.detail h2{margin:4px 0 2px;font-size:20px}
-.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:14px 0}
-.dl{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:14px 16px}
-.dl div{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-bottom:1px dashed var(--rule)}
-.dl div:last-child{border-bottom:0}
-.dl span{color:var(--ink3)}
-h3{margin:18px 0 8px;font-size:15px}
-@media (max-width:760px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:1fr}header .me{display:none}main{padding:14px 16px 50px}}
+.tag{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;background:var(--head);color:var(--ink2);border:1px solid var(--rule)}
+.tag.g{background:var(--ups);color:var(--up);border-color:transparent}
+.tag.r{background:var(--dns);color:var(--dn);border-color:transparent}
+.tag.b{background:var(--blues);color:var(--blue);border-color:transparent}
+.tag.a{background:var(--accs);color:var(--acc);border-color:transparent}
+.pager{display:flex;align-items:center;gap:8px;padding:10px 16px;color:var(--ink3);font-size:12px}
+.pager .sp{flex:1}
+.pager button{border:1px solid var(--rule);background:var(--card);border-radius:6px;padding:3px 10px;color:var(--ink2)}
+.pager button:disabled{opacity:.4;cursor:default}
+.filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.filters select{border:1px solid var(--rule);border-radius:8px;padding:6px 8px;background:var(--card)}
+.bars{display:flex;align-items:flex-end;gap:6px;height:190px;padding:8px 4px 0}
+.bars .b{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0}
+.bars .b i{display:block;width:100%;max-width:34px;background:var(--acc);border-radius:4px 4px 0 0;min-height:2px}
+.bars .b span{font-size:11px;color:var(--ink3);margin-top:6px;white-space:nowrap}
+.bars .b em{font-style:normal;font-size:11px;color:var(--ink2);margin-bottom:3px}
+.dhead{display:flex;gap:16px;align-items:center;padding:16px;flex-wrap:wrap}
+.dhead .av{width:52px;height:52px;border-radius:12px;background:var(--accs);color:var(--acc);display:grid;place-items:center;font-weight:800;font-size:22px;flex:none}
+.dhead h2{margin:0;font-size:19px}
+.dhead .meta{color:var(--ink2);font-size:13px;margin-top:2px}
+.facts{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--rule)}
+.facts div{padding:12px 16px;border-right:1px solid var(--rule)}
+.facts div:last-child{border-right:0}
+.facts small{display:block;color:var(--ink3);font-size:12px}
+.facts b{font-size:16px}
+.tabs{display:flex;gap:2px;padding:0 12px;border-bottom:1px solid var(--rule);overflow:auto}
+.tabs button{border:0;background:none;padding:11px 12px;color:var(--ink2);border-bottom:2px solid transparent;white-space:nowrap}
+.tabs button.on{color:var(--acc);border-bottom-color:var(--acc);font-weight:600}
+.login{min-height:100vh;display:grid;place-items:center;background:var(--side)}
+.lbox{background:var(--card);border-radius:14px;padding:32px;width:min(400px,92vw);text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.lbox img{width:56px;height:56px;border-radius:14px}
+.lbox h1{font-size:20px;margin:12px 0 4px}
+.lbox p{color:var(--ink2);margin:0 0 20px}
+.lbox .tbtn{width:100%;justify-content:center;padding:11px}
+.lbox select{margin-top:16px;border:1px solid var(--rule);border-radius:8px;padding:6px 8px;background:var(--card)}
+.err{color:var(--dn);min-height:1.4em;margin-top:12px;font-size:13px}
+.empty{padding:40px;text-align:center;color:var(--ink3)}
+.spin{padding:80px;text-align:center;color:var(--ink3)}
+@media (max-width:1180px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.facts{grid-template-columns:repeat(3,minmax(0,1fr))}.facts div:nth-child(3n){border-right:0}}
+@media (max-width:900px){
+  .app{grid-template-columns:1fr}
+  .side{position:sticky;top:0;height:auto;z-index:6}
+  .brand{padding:10px 16px;border-bottom:0}
+  .nav{display:flex;gap:4px;overflow-x:auto;padding:0 8px 8px;scrollbar-width:none}
+  .nav::-webkit-scrollbar{display:none}
+  .nav .grp{display:none}
+  .nav button{width:auto;white-space:nowrap;padding:7px 12px}
+  .nav button .ct{display:none}
+  .sidefoot{display:none}
+  .top{position:static;flex-wrap:wrap;padding:10px 16px}
+  .search{order:5;width:100%}
+  .search input{width:100%}
+  .content{padding:14px 16px 40px}
+  .grid2{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .facts div{border-right:0}
+  .upd{display:none}
+  .mfoot{display:flex!important}
+}
+.hrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.hrow>div:first-child{flex:1;min-width:220px}
+.bigt{margin:0 0 4px;font-size:22px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0 4px}
+.chip{border:1px solid var(--rule);background:var(--card);border-radius:99px;padding:6px 14px;color:var(--ink2);font-weight:600;font-size:13px}
+.chip.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.sect{font-size:14px;margin:18px 0 10px;color:var(--ink2)}
+.kpi .dl{font-size:12px;color:var(--ink3);margin-top:4px}
+.kpi .dl .up{color:var(--up)} .kpi .dl .dn{color:var(--dn)}
+.hbar{width:160px;height:8px;background:var(--head);border-radius:99px;overflow:hidden}
+.hbar i{display:block;height:100%;background:var(--acc);border-radius:99px}
+.funnel .fstep{display:grid;grid-template-columns:200px minmax(0,1fr) 260px;gap:14px;align-items:center;padding:8px 0}
+.funnel .fb{height:22px;background:var(--head);border-radius:6px;overflow:hidden}
+.funnel .fb i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),#E0A64A)}
+.funnel .fn{color:var(--ink2);font-size:13px}
+.note{margin:-6px 2px 16px;font-size:12px}
+@media (max-width:900px){.funnel .fstep{grid-template-columns:1fr}.hbar{width:90px}}
+.mfoot{display:none;gap:10px;align-items:center;justify-content:space-between;padding:14px 16px 24px;color:var(--ink3);font-size:12px}
+.mfoot select{border:1px solid var(--rule);border-radius:8px;padding:6px 8px;background:var(--card)}
 </style>
 </head>
 <body>
-<header><img src="icon-192.png" alt=""><h1 id="ttl"></h1><span class="me" id="me"></span><select id="lang" aria-label="Language"><option value="zh">简体中文</option><option value="ms">Bahasa Melayu</option><option value="en">English</option></select><button class="btn line" id="out" hidden></button></header>
-<main id="main"></main>
+<div id="root"><div class="spin">…</div></div>
 <script src="fb-app.js"></script>
 <script src="fb-auth.js"></script>
 <script src="fb-store.js"></script>
@@ -60,154 +169,597 @@ h3{margin:18px 0 8px;font-size:15px}
 "use strict";
 var FB_CONFIG={"apiKey": "AIzaSyDU_eu1m-VFZ9HwMM6oscqEMAolX0y_U-w", "authDomain": "oil-palm-a1925.firebaseapp.com", "projectId": "oil-palm-a1925", "storageBucket": "oil-palm-a1925.firebasestorage.app", "messagingSenderId": "989453427099", "appId": "1:989453427099:web:373e70cdb80b33d1ce013e"};      // build-www.py 放進來
 var ADMIN="oilpalmch@gmail.com";
-var DICT={" 包": [" 包", " beg", " bags"], " 包 · ": [" 包 · ", " beg · ", " bags · "], " 包數": [" 包数", " bilangan beg", " bags"], " 噸": [" 吨", " tan", " t"], " 年收入（月結單）": [" 年收入（月结单）", " pendapatan (penyata)", " income (statements)"], " 年賣果": [" 年卖果", " jualan buah", " fruit sold"], " 收入": [" 收入", " pendapatan", " income"], " 放了幾輪": [" 放了几轮", " pusingan baja", " rounds done"], " 果價 RM ": [" 果价 RM ", " harga RM ", " price RM "], " 次 · ": [" 次 · ", " · ", " · "], " 筆": [" 笔", " rekod", " records"], " 肥料錢": [" 肥料钱", " kos baja", " fertiliser cost"], " 賣果（噸）": [" 卖果（吨）", " jualan (tan)", " sold (t)"], " 開銷": [" 开销", " perbelanjaan", " costs"], "OIL PALM 後台": ["OIL PALM 后台", "OIL PALM Pentadbir", "OIL PALM Admin"], "‹ 回列表": ["‹ 回列表", "‹ Kembali", "‹ Back"], "上次打開": ["上次打开", "Kali terakhir buka", "Last opened"], "來源": ["来源", "Sumber", "Source"], "依格": ["依格", "relong", "relong"], "內容": ["内容", "Butiran", "Details"], "全部記錄": ["全部记录", "Semua rekod", "All records"], "全部賣果（噸）": ["全部卖果（吨）", "Jumlah jualan (tan)", "All-time sold (t)"], "公頃": ["公顷", "hektar", "ha"], "只有管理員的 Google 帳號可以進來。": ["只有管理员的 Google 账号可以进来。", "Hanya akaun Google pentadbir boleh masuk.", "Only the admin Google account can sign in."], "名字": ["名字", "Nama", "Name"], "園主": ["园主", "Pekebun", "Farmer"], "園名": ["园名", "Nama kebun", "Farm"], "土質": ["土质", "Jenis tanah", "Soil"], "地": ["地", "Tanah", "Land"], "地方": ["地方", "Tempat", "Place"], "如果是 permission-denied：Firestore 的 Rules 還沒換成有管理員的那一版。": ["如果是 permission-denied：Firestore 的 Rules 还没换成有管理员的那一版。", "Jika permission-denied: Rules Firestore belum ditukar ke versi pentadbir.", "If it says permission-denied, the Firestore rules have not been updated to the admin version yet."], "年": ["年", "Tahun", "Year"], "打草藥": ["打草药", "Racun", "Spraying"], "搜尋名字、Email、電話、地方": ["搜索名字、Email、电话、地方", "Cari nama, e-mel, telefon, tempat", "Search name, email, phone, place"], "收入（月結單）": ["收入（月结单）", "Pendapatan (penyata)", "Income (statements)"], "收果商": ["收果商", "Pembeli buah", "Buyer"], "放肥": ["放肥", "Baja", "Fertiliser"], "放肥計劃": ["放肥计划", "Pelan baja", "Fertiliser plans"], "放肥資料": ["放肥资料", "Data baja", "Fertiliser"], "數字": ["数字", "Jumlah", "Amount"], "數據": ["数据", "Data", "Data"], "數據（今年）": ["数据（今年）", "Data (tahun ini)", "Data (this year)"], "日期": ["日期", "Tarikh", "Date"], "普通土": ["普通土", "Tanah biasa", "Mineral"], "最常用的肥": ["最常用的肥", "Baja paling kerap", "Most-used fertiliser"], "最近一筆": ["最近一笔", "Rekod terkini", "Latest record"], "月": ["月", "Bulan", "Month"], "月結單": ["月结单", "Penyata", "Statement"], "有": ["有", "Ada", "Yes"], "有沒有計劃": ["有没有计划", "Ada pelan?", "Has plan"], "樹數": ["树数", "Bilangan pokok", "Palms"], "每棵公斤": ["每棵公斤", "kg / pokok", "kg / palm"], "每棵每年公斤": ["每棵每年公斤", "kg / pokok / tahun", "kg / palm / year"], "每畝每年噸數": ["每亩每年吨数", "tan / ekar / tahun", "t / acre / year"], "沒有": ["没有", "Tiada", "No"], "泥炭土": ["泥炭土", "Tanah gambut", "Peat"], "用 Google 登入": ["用 Google 登录", "Log masuk dengan Google", "Sign in with Google"], "用戶": ["用户", "Pengguna", "Users"], "畝": ["亩", "ekar", "acre"], "看樹": ["看树", "Periksa pokok", "Palm check"], "磅單 ": ["磅单 ", "Tiket ", "Ticket "], "種植年": ["种植年", "Tahun tanam", "Planted"], "種類": ["种类", "Jenis", "Type"], "第 ": ["第 ", "Pusingan ", "Round "], "第幾次": ["第几次", "Pusingan", "Round"], "總樹數": ["总树数", "Jumlah pokok", "Total palms"], "肥料": ["肥料", "Baja", "Fertiliser"], "記錄": ["记录", "Rekod", "Records"], "讀不到資料：": ["读不到资料：", "Tak dapat baca data: ", "Could not read data: "], "賣果": ["卖果", "Jual buah", "Harvest"], "這個帳號（": ["这个账号（", "Akaun ini (", "This account ("], "還沒有計劃": ["还没有计划", "Belum ada pelan", "No plan yet"], "還沒有資料": ["还没有资料", "Belum ada data", "No data yet"], "重新整理": ["刷新", "Muat semula", "Refresh"], "開銷": ["开销", "Perbelanjaan", "Expense"], "雨量地點": ["雨量地点", "Lokasi hujan", "Rain location"], "電話": ["电话", "Telefon", "Phone"], "面積": ["面积", "Keluasan", "Area"], "）不是管理員。": ["）不是管理员。", ") bukan pentadbir.", ") is not the admin."], "載入中…": ["载入中…", "Memuatkan…", "Loading…"], "讀取全部園主的資料…": ["读取全部园主的资料…", "Membaca data semua pekebun…", "Loading all farmers’ data…"], "這個版本沒有接資料庫。": ["这个版本没有接数据库。", "Versi ini tiada pangkalan data.", "This build has no database."], "登出": ["登出", "Log keluar", "Sign out"]};
+/* ---------- 三種語言：簡體中文、馬來文、英文（原始字串寫繁體當鑰匙） ---------- */
+var DICT={
+"總覽":["总览","Papan pemuka","Dashboard"],
+"客戶":["客户","Pelanggan","Customers"],
+"產量與收支":["产量与收支","Hasil & kewangan","Harvest & money"],
+"園地":["园地","Kebun","Land"],
+"放肥":["放肥","Baja","Fertiliser"],
+"主選單":["主菜单","Menu utama","Main"],
+"報表":["报表","Laporan","Reports"],
+"搜尋客戶、Email、電話、地方":["搜索客户、Email、电话、地方","Cari pelanggan, e-mel, telefon, tempat","Search customer, email, phone, place"],
+"重新整理":["刷新","Muat semula","Refresh"],
+"下載 Excel":["下载 Excel","Muat turun Excel","Download Excel"],
+"更新於":["更新于","Dikemas kini","Updated"],
+"登出":["退出","Log keluar","Sign out"],
+"管理後台":["管理后台","Pentadbiran","Admin"],
+"只有管理員的 Google 帳號可以進來。":["只有管理员的 Google 账号可以进来。","Hanya akaun Google pentadbir boleh masuk.","Only the admin Google account can sign in."],
+"用 Google 登入":["用 Google 登录","Log masuk dengan Google","Sign in with Google"],
+"不是管理員帳號：":["不是管理员账号：","Bukan akaun pentadbir: ","Not the admin account: "],
+"讀取資料中…":["读取资料中…","Membaca data…","Loading data…"],
+"讀不到資料：":["读不到资料：","Tak dapat baca data: ","Could not read data: "],
+"Firestore 的 Rules 還沒換成有管理員的那一版。":["Firestore 的 Rules 还没换成有管理员的那一版。","Rules Firestore belum ditukar ke versi pentadbir.","The Firestore rules are not the admin version yet."],
+"客戶數":["客户数","Pelanggan","Customers"],
+"30 天內有用":["30 天内有用","Aktif 30 hari","Active 30 days"],
+"今年賣果":["今年卖果","Jualan tahun ini","Sold this year"],
+"今年收入":["今年收入","Pendapatan tahun ini","Income this year"],
+"總樹數":["总树数","Jumlah pokok","Total palms"],
+"總面積":["总面积","Jumlah keluasan","Total area"],
+"今年肥料":["今年肥料","Baja tahun ini","Fertiliser this year"],
+"平均每畝每年":["平均每亩每年","Purata / ekar / tahun","Avg / acre / year"],
+"有放肥計劃":["有放肥计划","Ada pelan baja","Has fertiliser plan"],
+"噸":["吨","tan","t"],"包":["包","beg","bags"],"棵":["棵","pokok","palms"],"位":["位","orang","people"],"筆":["笔","rekod","records"],
+"每月賣果（全部客戶，噸）":["每月卖果（全部客户，吨）","Jualan bulanan (semua, tan)","Monthly fruit sold (all, t)"],
+"每月收入（全部客戶，RM）":["每月收入（全部客户，RM）","Pendapatan bulanan (semua, RM)","Monthly income (all, RM)"],
+"近 12 個月":["近 12 个月","12 bulan lepas","Last 12 months"],
+"產量排行":["产量排行","Kedudukan hasil","Top producers"],
+"今年":["今年","Tahun ini","This year"],
+"最新動態":["最新动态","Aktiviti terkini","Latest activity"],
+"地區分佈":["地区分布","Mengikut kawasan","By area"],
+"樹齡分佈":["树龄分布","Mengikut umur pokok","By palm age"],
+"客戶名稱":["客户名称","Pelanggan","Customer"],"Email":["Email","E-mel","Email"],"電話":["电话","Telefon","Phone"],"地方":["地方","Tempat","Place"],
+"記錄數":["记录数","Rekod","Records"],"最近記錄":["最近记录","Rekod terkini","Last record"],"上次打開":["上次打开","Kali terakhir buka","Last opened"],"狀態":["状态","Status","Status"],
+"活躍":["活跃","Aktif","Active"],"少用":["少用","Jarang","Idle"],"沒資料":["没资料","Tiada data","No data"],
+"今年賣果（噸）":["今年卖果（吨）","Jualan tahun ini (tan)","Sold this year (t)"],"全部賣果（噸）":["全部卖果（吨）","Jumlah jualan (tan)","All-time sold (t)"],
+"今年收入（RM）":["今年收入（RM）","Pendapatan (RM)","Income (RM)"],"今年開銷（RM）":["今年开销（RM）","Perbelanjaan (RM)","Costs (RM)"],"今年淨賺（RM）":["今年净赚（RM）","Untung bersih (RM)","Net (RM)"],
+"每畝每年噸數":["每亩每年吨数","tan/ekar/tahun","t/acre/yr"],"收果商":["收果商","Pembeli buah","Buyer"],
+"園名":["园名","Nama kebun","Farm"],"面積":["面积","Keluasan","Area"],"樹數":["树数","Pokok","Palms"],"種植年":["种植年","Tahun tanam","Planted"],"樹齡":["树龄","Umur pokok","Palm age"],"土質":["土质","Tanah","Soil"],"雨量地點":["雨量地点","Lokasi hujan","Rain location"],
+"普通土":["普通土","Tanah biasa","Mineral"],"泥炭土":["泥炭土","Gambut","Peat"],"畝":["亩","ekar","acre"],"公頃":["公顷","hektar","ha"],"依格":["依格","relong","relong"],
+"今年輪數":["今年轮数","Pusingan tahun ini","Rounds this year"],"今年包數":["今年包数","Beg tahun ini","Bags this year"],"肥料錢（RM）":["肥料钱（RM）","Kos baja (RM)","Fertiliser cost (RM)"],
+"每棵每年公斤":["每棵每年公斤","kg/pokok/tahun","kg/palm/yr"],"今年計劃":["今年计划","Pelan tahun ini","Plan this year"],"最常用的肥":["最常用的肥","Baja paling kerap","Most-used fertiliser"],
+"有":["有","Ada","Yes"],"沒有":["没有","Tiada","No"],
+"全部":["全部","Semua","All"],"狀態：":["状态：","Status: ","Status: "],"土質：":["土质：","Tanah: ","Soil: "],"計劃：":["计划：","Pelan: ","Plan: "],"收果商：":["收果商：","Pembeli: ","Buyer: "],
+"共":["共","Jumlah","Total"],"上一頁":["上一页","Sebelum","Prev"],"下一頁":["下一页","Seterusnya","Next"],
+"還沒有資料":["还没有资料","Belum ada data","No data yet"],
+"‹ 回客戶列表":["‹ 回客户列表","‹ Senarai pelanggan","‹ Customer list"],
+"概要":["概要","Ringkasan","Overview"],"賣果":["卖果","Jual buah","Harvest"],"月結單":["月结单","Penyata","Statements"],"開銷":["开销","Perbelanjaan","Expenses"],"放肥記錄":["放肥记录","Rekod baja","Fertiliser log"],"放肥計劃":["放肥计划","Pelan baja","Fertiliser plan"],"打草藥":["打草药","Racun","Spraying"],
+"日期":["日期","Tarikh","Date"],"磅單號":["磅单号","No. tiket","Ticket"],"重量（噸）":["重量（吨）","Berat (tan)","Weight (t)"],"羅厘":["罗厘","Lori","Lorry"],
+"月份":["月份","Bulan","Month"],"果價":["果价","Harga","Price"],"運費":["运费","Pengangkutan","Transport"],"實收（RM）":["实收（RM）","Diterima (RM)","Received (RM)"],
+"類別":["类别","Kategori","Category"],"金額（RM）":["金额（RM）","Jumlah (RM)","Amount (RM)"],"備註":["备注","Nota","Note"],
+"第幾次":["第几次","Pusingan","Round"],"肥料":["肥料","Baja","Fertiliser"],"包數":["包数","Beg","Bags"],"每包（RM）":["每包（RM）","Setiap beg (RM)","Per bag (RM)"],
+"年":["年","Tahun","Year"],"月":["月","Bulan","Month"],"每棵公斤":["每棵公斤","kg/pokok","kg/palm"],"來源":["来源","Sumber","Source"],
+"園主資料":["园主资料","Maklumat pekebun","Farmer"],"園地資料":["园地资料","Maklumat kebun","Land"],
+"種類":["种类","Jenis","Type"],"內容":["内容","Butiran","Details"],"數字":["数字","Nilai","Value"],
+"30 天內有回來":["30 天内有回来", "Kembali dalam 30 hari", "Back within 30 days"],
+"AI 看樹":["AI 看树", "AI periksa pokok", "AI palm check"],
+"App 排放肥計劃":["App 排放肥计划", "Pelan baja oleh app", "App fertiliser plan"],
+"「次數」是打開那個畫面或按那個功能的次數；手機上的 App 要有網路才會把次數送上來。":["「次数」是打开那个画面或按那个功能的次数；手机上的 App 要有网络才会把次数送上来。", "\"Kali\" ialah berapa kali skrin dibuka atau fungsi ditekan; app telefon hanya hantar bila ada internet.", "\"Times\" counts screen opens or feature taps; phone apps send them only when online."],
+"上一期":["上一期", "Tempoh lepas", "Prev"],
+"上一步的":["上一步的", "daripada langkah lepas", "of previous step"],
+"上月":["上月", "Bulan lepas", "Last month"],
+"今日":["今日", "Hari ini", "Today"],
+"備份":["备份", "Sandaran", "Backup"],
+"全部會員，到今天為止":["全部会员，到今天为止", "Semua ahli, sehingga hari ini", "All members, to date"],
+"功能":["功能", "Fungsi", "Features"],
+"功能使用":["功能使用", "Penggunaan fungsi", "Feature usage"],
+"功能使用排行":["功能使用排行", "Fungsi paling digunakan", "Top features"],
+"填了園地（樹數）":["填了园地（树数）", "Isi maklumat kebun", "Filled in farm"],
+"夠久的會員":["够久的会员", "Ahli layak", "Eligible members"],
+"打開 App":["打开 App", "Buka app", "Open app"],
+"打開 App 次數":["打开 App 次数", "Kali buka app", "App opens"],
+"打開次數":["打开次数", "Kali buka", "Opens"],
+"掉最多的那一步，就是最需要改的地方。":["掉最多的那一步，就是最需要改的地方。", "Langkah yang paling ramai berhenti ialah yang paling perlu dibaiki.", "The step where most people drop off is the one to fix first."],
+"改":["改", "ubah", "edit"],
+"新增記錄":["新增记录", "Rekod baru", "New records"],
+"新會員":["新会员", "Ahli baru", "New members"],
+"新註冊":["新注册", "Daftar baru", "New sign-ups"],
+"日期區間":["日期区间", "Tempoh", "Range"],
+"昨日":["昨日", "Semalam", "Yesterday"],
+"時間":["时间", "Masa", "Period"],
+"最常用的功能":["最常用的功能", "Fungsi paling kerap", "Top feature"],
+"最後一次用":["最后一次用", "Kali terakhir guna", "Last active"],
+"會員":["会员", "Ahli", "Members"],
+"會員活動":["会员活动", "Aktiviti ahli", "Member activity"],
+"會員漏斗":["会员漏斗", "Corong ahli", "Member funnel"],
+"會員與報表":["会员与报表", "Ahli & laporan", "Members & reports"],
+"會員註冊、每天有沒有回來用、用了哪些功能、記了多少帳。":["会员注册、每天有没有回来用、用了哪些功能、记了多少账。", "Pendaftaran, siapa kembali setiap hari, fungsi yang digunakan dan rekod yang dibuat.", "Sign-ups, who comes back each day, which features they use and how much they record."],
+"有今年放肥計劃":["有今年放肥计划", "Ada pelan baja tahun ini", "Has this year's plan"],
+"有回來":["有回来", "Kembali", "Came back"],
+"本月":["本月", "Bulan ini", "This month"],
+"次數":["次数", "Kali", "Times"],
+"每位活躍會員記幾筆":["每位活跃会员记几笔", "Rekod setiap ahli aktif", "Records per active member"],
+"每天活躍會員":["每天活跃会员", "Ahli aktif harian", "Daily active members"],
+"每週新會員還在用嗎":["每周新会员还在用吗", "Adakah ahli baru mingguan masih guna", "Weekly cohorts still using"],
+"活躍會員":["活跃会员", "Ahli aktif", "Active members"],
+"活躍率":["活跃率", "Kadar aktif", "Active rate"],
+"漏斗":["漏斗", "Corong", "Funnel"],
+"營運數據":["营运数据", "Data operasi", "Operations"],
+"用了幾天":["用了几天", "Hari aktif", "Active days"],
+"用過的會員":["用过的会员", "Ahli yang guna", "Members who used"],
+"留存":["留存", "Kekal", "Retention"],
+"留存率":["留存率", "Kadar kekal", "Retention rate"],
+"看帳單":["看账单", "Lihat akaun", "View bills"],
+"看放肥":["看放肥", "Lihat baja", "View fertiliser"],
+"看放肥教學":["看放肥教学", "Tutorial baja", "Fertiliser guide"],
+"看數據":["看数据", "Lihat data", "View data"],
+"看首頁":["看首页", "Laman utama", "Home"],
+"立即更新":["立即更新", "Kemas kini", "Update now"],
+"第 1 天後":["第 1 天后", "Selepas hari 1", "After day 1"],
+"第 2 週":["第 2 周", "Minggu 2", "Week 2"],
+"第 3 週":["第 3 周", "Minggu 3", "Week 3"],
+"第 30 天後":["第 30 天后", "Selepas hari 30", "After day 30"],
+"第 4 週":["第 4 周", "Minggu 4", "Week 4"],
+"第 7 天後":["第 7 天后", "Selepas hari 7", "After day 7"],
+"裝置":["设备", "Peranti", "Device"],
+"記帳":["记账", "Rekod", "Records"],
+"記打草藥":["记打草药", "Rekod racun", "Log spraying"],
+"記放肥":["记放肥", "Rekod baja", "Log fertiliser"],
+"記月結單":["记月结单", "Rekod penyata", "Log statement"],
+"記賣果":["记卖果", "Rekod jualan", "Log harvest"],
+"記過放肥":["记过放肥", "Pernah rekod baja", "Logged fertiliser"],
+"記過第一筆賣果":["记过第一笔卖果", "Rekod jualan pertama", "First harvest logged"],
+"記開銷":["记开销", "Rekod belanja", "Log expense"],
+"註冊":["注册", "Daftar", "Signed up"],
+"註冊以後還有沒有回來用":["注册以后还有没有回来用", "Adakah mereka kembali selepas daftar", "Do they come back after signing up"],
+"註冊日":["注册日", "Tarikh daftar", "Signed up"],
+"註冊那週":["注册那周", "Minggu daftar", "Sign-up week"],
+"講話記帳":["讲话记账", "Rekod suara", "Voice entry"],
+"資料更新於":["资料更新于", "Data dikemas kini", "Data updated"],
+"近 30 天":["近 30 天", "30 hari", "Last 30 days"],
+"近 7 天":["近 7 天", "7 hari", "Last 7 days"],
+"近 8 週":["近 8 周", "8 minggu", "Last 8 weeks"],
+"年以下":["年以下","tahun ke bawah","yrs and under"],"年以上":["年以上","tahun ke atas","yrs and over"]
+};
 var LANG=(function(){ try{ var v=localStorage.getItem("op-admin-lang"); if(v) return v; }catch(e){} var n=(navigator.language||"").toLowerCase(); return n.indexOf("ms")===0?"ms":n.indexOf("en")===0?"en":"zh"; })();
-function L(t){ var r=DICT[t]; return r?r[{zh:0,ms:1,en:2}[LANG]]:t; }
-document.documentElement.lang=LANG==="zh"?"zh-Hans":LANG; document.title=L("OIL PALM 後台");
+function L(t){ var r=DICT[t]; return r?r[{zh:0,ms:1,en:2}[LANG]||0]:t; }
+document.documentElement.lang=LANG==="zh"?"zh-Hans":LANG;
+function setLang(v){ try{ localStorage.setItem("op-admin-lang",v); }catch(e){} location.reload(); }
+function langSel(){ var s=el("select"); s.setAttribute("aria-label","Language"); [["zh","简体中文"],["ms","Bahasa Melayu"],["en","English"]].forEach(function(o){ var op=el("option",null,o[1]); op.value=o[0]; if(o[0]===LANG) op.selected=true; s.appendChild(op); }); s.onchange=function(){ setLang(s.value); }; return s; }
+
+/* ---------- 小工具 ---------- */
 var $=function(s){ return document.querySelector(s); };
-$("#ttl").textContent=L("OIL PALM 後台"); $("#out").textContent=L("登出");
-$("#lang").value=LANG; $("#lang").onchange=function(){ try{ localStorage.setItem("op-admin-lang",this.value); }catch(e){} location.reload(); };
 function el(t,c,x){ var e=document.createElement(t); if(c) e.className=c; if(x!=null) e.textContent=x; return e; }
 function num(v){ var n=parseFloat(v); return isFinite(n)?n:0; }
 function fx(n,d){ return num(n).toLocaleString("en-MY",{minimumFractionDigits:d||0,maximumFractionDigits:d||0}); }
-function rm(n){ return "RM "+fx(n,0); }
-var main=$("#main");
-if(!FB_CONFIG){ main.innerHTML=""; var g0=el("div","gate"); g0.appendChild(el("p",null,L("這個版本沒有接資料庫。"))); main.appendChild(g0); return; }
-firebase.initializeApp(FB_CONFIG);
-var auth=firebase.auth(), db=firebase.firestore();
-main.innerHTML=""; (function(){ var g=el("div","gate"); g.appendChild(el("p",null,L("載入中…"))); main.appendChild(g); })();
+function ico(p){ return '<svg viewBox="0 0 24 24">'+p+'</svg>'; }
+var IC={
+  dash:'<rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/>',
+  users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.6c2.4.3 4.2 1.9 5 5.4"/>',
+  data:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  land:'<path d="M3 18l5-8 4 5 3-4 6 7z"/><circle cx="17" cy="6" r="2"/>',
+  fert:'<path d="M12 21c0-6 3-11 8-13-1 7-4 11-8 13z"/><path d="M12 21C12 15 9 10 4 8c1 7 4 11 8 13z"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',
+  refresh:'<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/>',
+  dl:'<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
+  ops:'<path d="M3 17l5-5 4 4 8-9"/><path d="M15 7h5v5"/>'
+};
+var YEAR=String(new Date().getFullYear()), TODAY=new Date().toISOString().slice(0,10);
+function daysAgo(d){ if(!d) return 9999; return Math.round((Date.now()-new Date(String(d).slice(0,10)).getTime())/864e5); }
 
-function gate(msg){
-  main.innerHTML="";
-  var g=el("div","gate");
-  g.appendChild(el("h2",null,L("OIL PALM 後台")));
-  g.appendChild(el("p",null,L("只有管理員的 Google 帳號可以進來。")));
-  var b=el("button","btn",L("用 Google 登入")); b.onclick=function(){
-    var p=new firebase.auth.GoogleAuthProvider(); p.setCustomParameters({prompt:"select_account"});
-    auth.signInWithPopup(p).catch(function(e){ err.textContent=String(e&&e.code||e); });
-  };
-  g.appendChild(b);
-  var err=el("div","err",msg||""); g.appendChild(err);
-  main.appendChild(g);
+/* ---------- 資料 ---------- */
+var DATA=[], LOADED=new Date(), ME="", V={page:"dash",q:"",sort:{},pg:{},detail:null,tab:"sum",f:{}};
+function plot(x){ return x.st.plot||{}; } function sets(x){ return x.st.settings||{}; }
+function area(x){ var p=plot(x); return num(p.area!=null?p.area:p.acres); }
+function unitNm(x){ var u=sets(x).unit; return L(u==="ha"?"公頃":u==="relong"?"依格":"畝"); }
+function hTon(r){ return r.kg!=null?num(r.kg)/1000:num(r.tonnes); }
+function fertName(x,id){ var fs=x.st.ferts||[]; for(var i=0;i<fs.length;i++) if(fs[i].id===id) return fs[i].nm; return id||""; }
+function name(x){ return x.user.name||plot(x).name||x.user.email||x.id.slice(0,8); }
+function place(x){ return x.user.town||sets(x).rainPlace||""; }
+function summarise(x){
+  var s={ton:0,tonY:0,inc:0,cost:0,bags:0,fertRm:0,kgFert:0,rounds:{},last:"",n:x.recs.length,fertUse:{}};
+  x.recs.forEach(function(r){
+    var y=String(r.date||"").slice(0,4);
+    if(r.date&&r.date>s.last) s.last=r.date;
+    if(r.kind==="harvest"){ s.ton+=hTon(r); if(y===YEAR) s.tonY+=hTon(r); }
+    if(r.kind==="statement"&&y===YEAR) s.inc+=num(r.net);
+    if(r.kind==="expense"&&y===YEAR) s.cost+=num(r.amount);
+    if(r.kind==="fert"){ s.fertUse[r.fert]=(s.fertUse[r.fert]||0)+num(r.bags); if(y===YEAR){ s.bags+=num(r.bags); s.fertRm+=num(r.bags)*num(r.priceBag); s.kgFert+=num(r.bags)*(num(r.kgBag)||50); s.rounds[r.round]=1; } }
+  });
+  var top=Object.keys(s.fertUse).sort(function(a,b){ return s.fertUse[b]-s.fertUse[a]; })[0];
+  s.topFert=top?fertName(x,top):"";
+  s.plan=(x.st.plans||[]).some(function(p){ return String(p.year)===YEAR; });
+  var seen=daysAgo(x.user.seen), lastR=daysAgo(s.last);
+  s.status=!s.n?"none":Math.min(seen,lastR)<=30?"act":"idle";
+  x.sum=s; return x;
 }
-$("#out").onclick=function(){ auth.signOut(); };
-auth.onAuthStateChanged(function(u){
-  $("#out").hidden=!u; $("#me").textContent=u?(u.email||""):"";
-  if(!u){ gate(); return; }
-  if(String(u.email).toLowerCase()!==ADMIN||!u.emailVerified){ gate(L("這個帳號（")+u.email+L("）不是管理員。")); auth.signOut(); return; }
-  load();
-});
-
-var DATA=null;
-function load(){
-  main.innerHTML=""; var g1=el("div","gate"); g1.appendChild(el("p",null,L("讀取全部園主的資料…"))); main.appendChild(g1);
-  Promise.all([db.collection("users").get(), db.collection("farms").get()]).then(function(res){
+function loadReal(){
+  var db=firebase.firestore();
+  return Promise.all([db.collection("users").get(), db.collection("farms").get()]).then(function(res){
     var users={}; res[0].forEach(function(d){ users[d.id]=d.data(); });
-    var farms=res[1].docs;
-    return Promise.all(farms.map(function(f){
+    return Promise.all(res[1].docs.map(function(f){
       var ref=db.collection("farms").doc(f.id);
       return Promise.all([ref.collection("state").doc("main").get(), ref.collection("records").get()]).then(function(r){
         var st={}; try{ st=JSON.parse((r[0].data()||{}).j||"{}"); }catch(e){}
-        var recs=[]; r[1].forEach(function(d){ try{ recs.push(JSON.parse(d.data().j)); }catch(e){} });
-        var fm=f.data()||{}, owner=fm.owner||f.id;
-        return {id:f.id, farm:fm, user:users[owner]||{}, st:st, recs:recs};
+        var recs=[]; r[1].forEach(function(d){ try{ var o=JSON.parse(d.data().j), at=d.data().at; o._at=at&&at.toDate?at.toDate().toISOString():""; recs.push(o); }catch(e){} });
+        var fm=f.data()||{}; return {id:f.id, farm:fm, user:users[fm.owner||f.id]||{}, st:st, recs:recs};
       });
     }));
-  }).then(function(list){
-    DATA=list.map(summarise);
-    show("users");
+  });
+}
+/* 本機看畫面用的示範資料：只有 localhost 加 ?demo 才會出現，正式網址永遠不會 */
+var DEMO=/^(localhost|127\.0\.0\.1)$/.test(location.hostname)&&/[?&]demo\b/.test(location.search);
+function loadDemo(){
+  var names=[["陈亚福","Kluang"],["林美玲","Ayer Hitam"],["Ahmad Rahim","Paloh"],["黄国强","Simpang Renggam"],["Siti Aminah","Kahang"],["李志明","Kluang"],["Muthu Raj","Machap"],["张秀英","Renggam"],["Tan Wei Ming","Layang-Layang"],["Rosli Hassan","Paloh"],["王建华","Kluang"],["Lim Ah Kow","Ayer Hitam"]];
+  var out=[];
+  names.forEach(function(n,i){
+    var trees=200+((i*137)%600), yr=2004+((i*3)%16), acres=Math.round(trees/55), recs=[], seed=i+1;
+    function rnd(){ seed=(seed*9301+49297)%233280; return seed/233280; }
+    for(var m=0;m<14&&i!==11;m++){
+      var d=new Date(); d.setDate(1); d.setMonth(d.getMonth()-m); var ym=d.toISOString().slice(0,7);
+      var k=2+Math.floor(rnd()*2), tot=0;
+      for(var j=0;j<k;j++){ var kg=Math.round(acres*(380+rnd()*260)/k); tot+=kg; recs.push({id:"h"+i+"-"+m+"-"+j,kind:"harvest",date:ym+"-"+("0"+(5+j*9)).slice(-2),kg:kg,slip:"R"+(10000+i*400+m*9+j),lorryNo:"JLQ "+(1000+i*7)}); }
+      if(m>0) recs.push({id:"s"+i+"-"+m,kind:"statement",month:ym,date:ym+"-28",price:860+Math.round(rnd()*120),transport:28,net:Math.round(tot/1000*(830+rnd()*90))});
+      recs.push({id:"e"+i+"-"+m,kind:"expense",date:ym+"-15",cat:["柴油","工人工錢","芭路維修"][m%3],amount:Math.round(80+rnd()*600),note:""});
+      if(m%3===1) recs.push({id:"f"+i+"-"+m,kind:"fert",date:ym+"-10",round:4-Math.floor(m/3),fert:"npk",bags:Math.round(trees*2/50),kgBag:50,priceBag:118});
+    }
+    var st={plot:{name:n[0]+" 园",acres:acres,trees:trees,year:yr,soil:i%4===2?"peat":"mineral"},settings:{unit:"acre",buyer:["Rantaian Sawit","FGV","Sime Darby"][i%3],rainPlace:n[1]},ferts:[{id:"npk",nm:"NPK 12:12:17:2"}],
+      plans:i%3?[{year:YEAR,src:"App",rounds:[{month:2,items:[{fert:"npk",kg:2}]},{month:5,items:[{fert:"npk",kg:2}]},{month:8,items:[{fert:"npk",kg:2}]},{month:10,items:[{fert:"npk",kg:2}]}]}]:[]};
+    var seen=new Date(); seen.setDate(seen.getDate()-((i*11)%60));
+    var made=new Date(); made.setDate(made.getDate()-(5+i*9));
+    recs.forEach(function(r){ var t=new Date(r.date+"T10:00:00"); if(t<made) t=new Date(made.getTime()+((r.id.length*7919)%20)*864e5); if(t>new Date()) t=new Date(); r._at=t.toISOString(); });
+    var usage={}, EV=["open","view:home","view:fert","view:bill","view:plot","form:harvest","form:fert","form:expense","feat:tree","feat:voice","feat:planWizard","feat:fertGuide"];
+    for(var dd=0;dd<60;dd++){ if(rnd()<(i%4===3?0.08:0.45)){ var dt=new Date(); dt.setDate(dt.getDate()-dd); if(dt<made) continue; var ds=dt.toISOString().slice(0,10);
+      EV.forEach(function(ev,ei){ var c=Math.floor(rnd()*(ei<2?4:ei<5?3:1.6)); if(c) usage[ds+"|"+ev]=c; }); usage[ds+"|open"]=(usage[ds+"|open"]||0)+1; } }
+    out.push({id:"demo"+i,farm:{createdAt:made.toISOString()},user:{name:n[0],email:"farmer"+(i+1)+"@example.com",phone:"01"+(2+i%7)+"-"+(3000000+i*12345),town:n[1],seen:seen.toISOString(),usage:usage,plat:["android","web","android","ios"][i%4]},st:st,recs:recs});
+  });
+  return Promise.resolve(out);
+}
+
+/* ---------- 登入 ---------- */
+var root=$("#root");
+function loginView(msg){
+  root.innerHTML="";
+  var w=el("div","login"), b=el("div","lbox"); w.appendChild(b);
+  var im=el("img"); im.src="icon-192.png"; im.alt=""; b.appendChild(im);
+  b.appendChild(el("h1",null,"OIL PALM ERP"));
+  b.appendChild(el("p",null,L("只有管理員的 Google 帳號可以進來。")));
+  var g=el("button","tbtn pri",L("用 Google 登入")); b.appendChild(g);
+  var er=el("div","err",msg||""); b.appendChild(er);
+  b.appendChild(langSel());
+  g.onclick=function(){ var p=new firebase.auth.GoogleAuthProvider(); p.setCustomParameters({prompt:"select_account"}); firebase.auth().signInWithPopup(p).catch(function(e){ er.textContent=String(e&&e.code||e); }); };
+  root.appendChild(w);
+}
+function boot(){
+  if(DEMO){ ME="demo@localhost"; load(); return; }
+  if(!FB_CONFIG){ root.innerHTML='<div class="spin">No database in this build.</div>'; return; }
+  firebase.initializeApp(FB_CONFIG);
+  root.innerHTML='<div class="spin">'+L("讀取資料中…")+'</div>';
+  firebase.auth().onAuthStateChanged(function(u){
+    if(!u){ loginView(); return; }
+    if(String(u.email).toLowerCase()!==ADMIN||!u.emailVerified){ var m=L("不是管理員帳號：")+u.email; firebase.auth().signOut(); loginView(m); return; }
+    ME=u.email; load();
+  });
+}
+function load(){
+  root.innerHTML='<div class="spin">'+L("讀取資料中…")+'</div>';
+  (DEMO?loadDemo():loadReal()).then(function(list){
+    DATA=list.map(summarise); LOADED=new Date(); draw();
   }).catch(function(e){
-    main.innerHTML=""; var g=el("div","gate");
-    g.appendChild(el("p",null,L("讀不到資料：")+String(e&&e.code||e)));
-    g.appendChild(el("p","muted",L("如果是 permission-denied：Firestore 的 Rules 還沒換成有管理員的那一版。")));
-    main.appendChild(g);
+    root.innerHTML=""; var w=el("div","login"), b=el("div","lbox"); w.appendChild(b);
+    b.appendChild(el("h1",null,L("讀不到資料：")+String(e&&e.code||e)));
+    if(/permission/.test(String(e&&e.code))) b.appendChild(el("p",null,L("Firestore 的 Rules 還沒換成有管理員的那一版。")));
+    var r=el("button","tbtn pri",L("重新整理")); r.onclick=load; b.appendChild(r);
+    root.appendChild(w);
   });
 }
-function plotArea(st){ var p=st.plot||{}; return num(p.area!=null?p.area:p.acres); }
-function unitNm(st){ var u=(st.settings||{}).unit; return u==="ha"?L("公頃"):u==="relong"?L("依格"):L("畝"); }
-function hTon(r){ return r.kg!=null?num(r.kg)/1000:num(r.tonnes); }
-function fertName(st,id){ var fs=st.ferts||[]; for(var i=0;i<fs.length;i++) if(fs[i].id===id) return fs[i].nm; return id||""; }
-function summarise(x){
-  var y=String(new Date().getFullYear()), s={ton:0,tonY:0,income:0,cost:0,fertBags:0,fertRm:0,last:"",n:x.recs.length};
-  x.recs.forEach(function(r){
-    if(r.date&&r.date>s.last) s.last=r.date;
-    var yr=String(r.date||"").slice(0,4);
-    if(r.kind==="harvest"){ s.ton+=hTon(r); if(yr===y) s.tonY+=hTon(r); }
-    if(r.kind==="statement"&&yr===y) s.income+=num(r.net);
-    if(r.kind==="expense"&&yr===y) s.cost+=num(r.amount);
-    if(r.kind==="fert"&&yr===y){ s.fertBags+=num(r.bags); s.fertRm+=num(r.bags)*num(r.priceBag); }
+
+/* ---------- 版面：左邊功能選單、上面工具列、中間內容 ---------- */
+var PAGES=[["dash","總覽","dash"],["fert","放肥","fert"],["ops","營運數據","ops"],["cust","客戶","users"],["data","產量與收支","data"],["land","園地","land"]];
+function go(p){ V.page=p; V.detail=null; V.tab="sum"; draw(); window.scrollTo(0,0); }
+function draw(){
+  root.innerHTML="";
+  var app=el("div","app"), side=el("aside","side"), main=el("div","main");
+  var br=el("div","brand"); br.innerHTML='<img src="icon-192.png" alt="">'; var bt=el("div"); bt.appendChild(el("b",null,"OIL PALM ERP")); bt.appendChild(el("small",null,L("管理後台")+(DEMO?" · DEMO":""))); br.appendChild(bt); side.appendChild(br);
+  var nav=el("nav","nav");
+  nav.appendChild(el("div","grp",L("主選單")));
+  PAGES.forEach(function(p,i){
+    if(i===3) nav.appendChild(el("div","grp",L("會員與報表")));
+    var b=el("button",(!V.detail&&V.page===p[0])||(V.detail&&p[0]==="cust")?"on":""); b.innerHTML=ico(IC[p[2]]); b.appendChild(el("span",null,L(p[1])));
+    if(p[0]==="cust") b.appendChild(el("span","ct",String(DATA.length)));
+    b.onclick=function(){ go(p[0]); }; nav.appendChild(b);
   });
-  x.sum=s; return x;
-}
-var TABS=[["users",L("用戶")],["data",L("數據")],["land",L("地")],["fert",L("放肥資料")]];
-function show(tab,detail){
-  main.innerHTML="";
-  var all=DATA, y=new Date().getFullYear();
-  var k=el("div","kpis");
-  function kpi(a,b){ var d=el("div","kpi"); d.appendChild(el("small",null,a)); d.appendChild(el("b",null,b)); k.appendChild(d); }
-  var ton=0,inc=0,trees=0; all.forEach(function(x){ ton+=x.sum.tonY; inc+=x.sum.income; trees+=num((x.st.plot||{}).trees); });
-  kpi(L("園主"),fx(all.length)); kpi(y+L(" 年賣果"),fx(ton,1)+L(" 噸")); kpi(y+L(" 年收入（月結單）"),rm(inc)); kpi(L("總樹數"),fx(trees));
-  main.appendChild(k);
-  if(detail){ showDetail(detail); return; }
-  var tabs=el("div","tabs");
-  TABS.forEach(function(t){ var b=el("button",t[0]===tab?"on":"",t[1]); b.onclick=function(){ show(t[0]); }; tabs.appendChild(b); });
-  var rf=el("button",null,L("重新整理")); rf.onclick=load; tabs.appendChild(rf);
-  main.appendChild(tabs);
-  var bar=el("div","bar"), q=el("input"); q.placeholder=L("搜尋名字、Email、電話、地方"); bar.appendChild(q); main.appendChild(bar);
-  var card=el("div","card"); main.appendChild(card);
-  var cols={
-    users:[[L("名字"),function(x){ return x.user.name||(x.st.plot||{}).name||""; }],["Email",function(x){ return x.user.email||""; }],[L("電話"),function(x){ return x.user.phone||""; }],[L("地方"),function(x){ return x.user.town||(x.st.settings||{}).rainPlace||""; }],[L("記錄"),function(x){ return x.sum.n; },1],[L("最近一筆"),function(x){ return x.sum.last; }],[L("上次打開"),function(x){ return String(x.user.seen||"").slice(0,10); }]],
-    data:[[L("園主"),function(x){ return x.user.name||x.user.email||""; }],[y+L(" 賣果（噸）"),function(x){ return fx(x.sum.tonY,2); },1],[L("全部賣果（噸）"),function(x){ return fx(x.sum.ton,2); },1],[y+L(" 收入"),function(x){ return rm(x.sum.income); },1],[y+L(" 開銷"),function(x){ return rm(x.sum.cost); },1],[L("每畝每年噸數"),function(x){ var a=plotArea(x.st); return a?fx(x.sum.tonY/a,2):""; },1],[L("收果商"),function(x){ return (x.st.settings||{}).buyer||""; }]],
-    land:[[L("園主"),function(x){ return x.user.name||x.user.email||""; }],[L("園名"),function(x){ return (x.st.plot||{}).name||""; }],[L("面積"),function(x){ var a=plotArea(x.st); return a?fx(a,1)+" "+unitNm(x.st):""; },1],[L("樹數"),function(x){ return fx((x.st.plot||{}).trees); },1],[L("種植年"),function(x){ return (x.st.plot||{}).year||""; },1],[L("土質"),function(x){ var s=(x.st.plot||{}).soil; return s==="peat"?L("泥炭土"):s?L("普通土"):""; }],[L("雨量地點"),function(x){ return (x.st.settings||{}).rainPlace||""; }]],
-    fert:[[L("園主"),function(x){ return x.user.name||x.user.email||""; }],[y+L(" 放了幾輪"),function(x){ var r={}; x.recs.forEach(function(z){ if(z.kind==="fert"&&String(z.date).slice(0,4)===String(y)) r[z.round]=1; }); return Object.keys(r).length; },1],[y+L(" 包數"),function(x){ return fx(x.sum.fertBags); },1],[y+L(" 肥料錢"),function(x){ return rm(x.sum.fertRm); },1],[L("每棵每年公斤"),function(x){ var t=num((x.st.plot||{}).trees), kg=0; x.recs.forEach(function(z){ if(z.kind==="fert"&&String(z.date).slice(0,4)===String(y)) kg+=num(z.bags)*(num(z.kgBag)||50); }); return t?fx(kg/t,2):""; },1],[L("有沒有計劃"),function(x){ return (x.st.plans||[]).some(function(p){ return String(p.year)===String(y); })?L("有"):L("沒有"); }],[L("最常用的肥"),function(x){ var c={}; x.recs.forEach(function(z){ if(z.kind==="fert") c[z.fert]=(c[z.fert]||0)+num(z.bags); }); var b=Object.keys(c).sort(function(a,bb){ return c[bb]-c[a]; })[0]; return b?fertName(x.st,b):""; }]]
-  }[tab];
-  var sortI=-1, asc=true;
-  function paint(){
-    card.innerHTML=""; var t=el("table"), h=el("tr");
-    cols.forEach(function(c,i){ var th=el("th",c[2]?"n":"",c[0]+(i===sortI?(asc?" ▲":" ▼"):"")); th.onclick=function(){ asc=sortI===i?!asc:true; sortI=i; paint(); }; h.appendChild(th); });
-    t.appendChild(h);
-    var term=q.value.trim().toLowerCase();
-    var rows=all.filter(function(x){ if(!term) return true; return [x.user.name,x.user.email,x.user.phone,x.user.town,(x.st.plot||{}).name].join(" ").toLowerCase().indexOf(term)>=0; });
-    if(sortI>=0) rows.sort(function(a,b){ var A=cols[sortI][1](a), B=cols[sortI][1](b); var nA=parseFloat(String(A).replace(/[^\d.-]/g,"")), nB=parseFloat(String(B).replace(/[^\d.-]/g,"")); var r=(isFinite(nA)&&isFinite(nB))?nA-nB:String(A).localeCompare(String(B)); return asc?r:-r; });
-    rows.forEach(function(x){ var tr=el("tr","click"); cols.forEach(function(c){ tr.appendChild(el("td",c[2]?"n":"",String(c[1](x)))); }); tr.onclick=function(){ show(tab,x); }; t.appendChild(tr); });
-    if(!rows.length){ var tr=el("tr"); var td=el("td","muted",L("還沒有資料")); td.colSpan=cols.length; tr.appendChild(td); t.appendChild(tr); }
-    card.appendChild(t);
+  side.appendChild(nav);
+  function footBits(host){
+    host.appendChild(langSel());
+    var who=el("div","who"); who.appendChild(el("div","av",(ME||"?").charAt(0).toUpperCase())); who.appendChild(el("span",null,ME));
+    var out=el("button",null,L("登出")); out.onclick=function(){ if(DEMO){ location.href=location.pathname; return; } firebase.auth().signOut(); }; who.appendChild(out);
+    host.appendChild(who);
   }
-  q.oninput=paint; paint();
+  var sf=el("div","sidefoot"); footBits(sf); side.appendChild(sf);
+  app.appendChild(side); app.appendChild(main);
+  var top=el("div","top"), cr=el("div","crumb");
+  var title=V.detail?name(V.detail):L(PAGES.filter(function(p){ return p[0]===V.page; })[0][1]);
+  cr.appendChild(el("small",null,"OIL PALM ERP / "+(V.detail?L("客戶"):L(V.page==="dash"?"總覽":V.page==="ops"?"會員與報表":"報表"))));
+  cr.appendChild(el("h1",null,title)); top.appendChild(cr);
+  var sw=el("label","search"); sw.innerHTML=ico(IC.search); var q=el("input"); q.placeholder=L("搜尋客戶、Email、電話、地方"); q.value=V.q;
+  q.oninput=function(){ V.q=q.value; if(V.page==="dash"||V.page==="ops"||V.detail){ V.page="cust"; V.detail=null; draw(); var n=$(".search input"); n.focus(); n.setSelectionRange(n.value.length,n.value.length); return; } V.pg[V.page]=0; paintTable(); };
+  sw.appendChild(q); top.appendChild(sw);
+  top.appendChild(el("span","upd",L("更新於")+" "+LOADED.toTimeString().slice(0,5)));
+  var rf=el("button","tbtn"); rf.innerHTML=ico(IC.refresh); rf.appendChild(document.createTextNode(L("重新整理"))); rf.onclick=load; top.appendChild(rf);
+  var ex=el("button","tbtn pri"); ex.innerHTML=ico(IC.dl); ex.appendChild(document.createTextNode(L("下載 Excel"))); ex.onclick=exportCsv; top.appendChild(ex);
+  main.appendChild(top);
+  var ct=el("div","content"); main.appendChild(ct);
+  var mf=el("div","mfoot"); footBits(mf); main.appendChild(mf);
+  root.appendChild(app);
+  if(V.detail) drawDetail(ct); else if(V.page==="dash") drawDash(ct); else if(V.page==="ops") drawOps(ct); else drawList(ct);
 }
-function showDetail(x){
-  var back=el("button","btn line",L("‹ 回列表")); back.onclick=function(){ show("users"); }; main.appendChild(back);
-  var d=el("div","detail"); main.appendChild(d);
-  d.appendChild(el("h2",null,x.user.name||(x.st.plot||{}).name||x.user.email||x.id));
-  d.appendChild(el("div","muted",[x.user.email,x.user.phone,x.user.town].filter(Boolean).join(" · ")));
-  var g=el("div","grid2"); d.appendChild(g);
-  function dl(title,pairs){ var b=el("div","dl"); b.appendChild(el("h3",null,title)); pairs.forEach(function(p){ var r=el("div"); r.appendChild(el("span",null,p[0])); r.appendChild(el("b",null,p[1]==null||p[1]===""?"—":String(p[1]))); b.appendChild(r); }); g.appendChild(b); }
-  var p=x.st.plot||{}, st=x.st.settings||{};
-  dl(L("地"),[[L("園名"),p.name],[L("面積"),plotArea(x.st)?fx(plotArea(x.st),1)+" "+unitNm(x.st):""],[L("樹數"),p.trees],[L("種植年"),p.year],[L("土質"),p.soil==="peat"?L("泥炭土"):p.soil?L("普通土"):""],[L("雨量地點"),st.rainPlace]]);
-  dl(L("數據（今年）"),[[L("賣果"),fx(x.sum.tonY,2)+L(" 噸")],[L("收入（月結單）"),rm(x.sum.income)],[L("開銷"),rm(x.sum.cost)],[L("肥料"),fx(x.sum.fertBags)+L(" 包 · ")+rm(x.sum.fertRm)],[L("收果商"),st.buyer],[L("全部記錄"),x.sum.n+L(" 筆")]]);
-  d.appendChild(el("h3",null,L("放肥計劃")));
-  var plans=x.st.plans||[];
-  if(!plans.length) d.appendChild(el("div","muted",L("還沒有計劃")));
-  plans.slice().sort(function(a,b){ return String(b.year).localeCompare(String(a.year)); }).forEach(function(pl){
-    var c=el("div","card"), t=el("table"); var h=el("tr"); [L("年"),L("第幾次"),L("月"),L("肥料"),L("每棵公斤"),L("來源")].forEach(function(n){ h.appendChild(el("th",null,n)); }); t.appendChild(h);
-    (pl.rounds||[]).forEach(function(r,i){ (r.items||[{fert:r.fert,kg:r.kg}]).forEach(function(it){ var tr=el("tr"); [pl.year,i+1,r.month||r.m||"",fertName(x.st,it.fert||it.id),it.kg||it.kgTree||"",pl.src||""].forEach(function(v){ tr.appendChild(el("td",null,String(v==null?"":v))); }); t.appendChild(tr); }); });
-    c.appendChild(t); d.appendChild(c); c.style.marginBottom="10px";
-  });
-  d.appendChild(el("h3",null,L("全部記錄")));
-  var KN={harvest:L("賣果"),statement:L("月結單"),expense:L("開銷"),fert:L("放肥"),spray:L("打草藥"),diag:L("看樹")};
-  var c=el("div","card"), t=el("table"), h=el("tr");
-  [L("日期"),L("種類"),L("內容"),L("數字")].forEach(function(n,i){ h.appendChild(el("th",i===3?"n":"",n)); }); t.appendChild(h);
-  x.recs.slice().sort(function(a,b){ return String(b.date).localeCompare(String(a.date)); }).forEach(function(r){
-    var what="", v="";
-    if(r.kind==="harvest"){ what=r.slip?L("磅單 ")+r.slip:""; v=fx(hTon(r),2)+L(" 噸"); }
-    else if(r.kind==="statement"){ what=(r.month||"")+L(" 果價 RM ")+fx(r.price,2); v=rm(r.net); }
-    else if(r.kind==="expense"){ what=(r.cat||"")+(r.note?" · "+r.note:""); v=rm(r.amount); }
-    else if(r.kind==="fert"){ what=L("第 ")+(r.round||"?")+L(" 次 · ")+fertName(x.st,r.fert); v=fx(r.bags)+L(" 包"); }
-    else { what=r.note||r.herb||r.sym||""; v=""; }
-    var tr=el("tr"); [r.date||"",KN[r.kind]||r.kind,what,v].forEach(function(val,i){ tr.appendChild(el("td",i===3?"n":"",String(val))); }); t.appendChild(tr);
-  });
-  c.appendChild(t); d.appendChild(c);
+function kpis(host,items){ var k=el("div","kpis"); items.forEach(function(it){ var d=el("div","kpi"); d.appendChild(el("small",null,it[0])); d.appendChild(el("b","num",it[1])); if(it[2]) d.appendChild(el("i",null,it[2])); k.appendChild(d); }); host.appendChild(k); }
+function panel(host,title,sub){ var p=el("div","panel"), h=el("div","ph"); h.appendChild(el("h2",null,title)); if(sub) h.appendChild(el("span","sub",sub)); p.appendChild(h); host.appendChild(p); return p; }
+function totals(){ var t={ton:0,inc:0,trees:0,bags:0,act:0,area:0,plan:0}; DATA.forEach(function(x){ t.ton+=x.sum.tonY; t.inc+=x.sum.inc; t.trees+=num(plot(x).trees); t.bags+=x.sum.bags; t.area+=area(x); if(x.sum.status==="act") t.act++; if(x.sum.plan) t.plan++; }); return t; }
+function last12(){ var months=[], d=new Date(); d.setDate(1); for(var i=11;i>=0;i--){ var x=new Date(d); x.setMonth(d.getMonth()-i); months.push(x.toISOString().slice(0,7)); } return months; }
+function barChart(host,months,vals,dp){
+  var bars=el("div","bars"), mx=Math.max.apply(null,months.map(function(m){ return vals[m]||0; }).concat([1]));
+  months.forEach(function(m){ var v=vals[m]||0, b=el("div","b"); b.appendChild(el("em","num",v?fx(v,dp):"")); var bar=el("i"); bar.style.height=(v/mx*145)+"px"; b.appendChild(bar); b.appendChild(el("span",null,m.slice(5)+"/"+m.slice(2,4))); bars.appendChild(b); });
+  var pb=el("div","pb"); pb.appendChild(bars); host.appendChild(pb);
 }
+function simpleTable(host,heads,rows,right,onRow){
+  var tw=el("div","tw"), t=el("table"), th=el("thead"), hr=el("tr");
+  heads.forEach(function(h,i){ hr.appendChild(el("th",right&&right.indexOf(i)>=0?"r":"",h)); }); th.appendChild(hr); t.appendChild(th);
+  var tb=el("tbody");
+  rows.forEach(function(r,ri){ var tr=el("tr",onRow?"ck":""); r.forEach(function(v,i){ var td=el("td",right&&right.indexOf(i)>=0?"r num":""); if(v&&v.nodeType) td.appendChild(v); else td.textContent=v==null||v===""?"—":String(v); tr.appendChild(td); }); if(onRow) tr.onclick=function(){ onRow(ri); }; tb.appendChild(tr); });
+  if(!rows.length){ var tr0=el("tr"), td0=el("td","empty",L("還沒有資料")); td0.colSpan=heads.length; tr0.appendChild(td0); tb.appendChild(tr0); }
+  t.appendChild(tb); tw.appendChild(t); host.appendChild(tw);
+}
+function drawDash(ct){
+  var t=totals();
+  kpis(ct,[[L("客戶數"),fx(DATA.length),L("30 天內有用")+" "+fx(t.act)],[L("今年賣果"),fx(t.ton,1)+" "+L("噸"),L("平均每畝每年")+" "+(t.area?fx(t.ton/t.area,2):"—")],[L("今年收入"),"RM "+fx(t.inc),""],
+    [L("總面積"),fx(t.area,0)+" "+L("畝"),L("總樹數")+" "+fx(t.trees)],[L("今年肥料"),fx(t.bags)+" "+L("包"),""],[L("有放肥計劃"),fx(t.plan)+" / "+fx(DATA.length),DATA.length?fx(t.plan/DATA.length*100)+"%":""]]);
+  var months=last12(), ton={}, inc={};
+  DATA.forEach(function(f){ f.recs.forEach(function(r){ var m=String(r.date).slice(0,7); if(r.kind==="harvest") ton[m]=(ton[m]||0)+hTon(r); if(r.kind==="statement"){ var mm=r.month||m; inc[mm]=(inc[mm]||0)+num(r.net); } }); });
+  var g=el("div","grid2 row"); ct.appendChild(g);
+  barChart(panel(g,L("每月賣果（全部客戶，噸）"),L("近 12 個月")),months,ton,0);
+  var p2=panel(g,L("產量排行"),L("今年"));
+  var top=DATA.slice().sort(function(a,b){ return b.sum.tonY-a.sum.tonY; }).slice(0,8);
+  simpleTable(p2,["#",L("客戶名稱"),L("今年賣果（噸）"),L("每畝每年噸數")],top.map(function(x,i){ return [i+1,name(x),fx(x.sum.tonY,2),area(x)?fx(x.sum.tonY/area(x),2):"—"]; }),[2,3],function(i){ openDetail(top[i]); });
+  var g2=el("div","grid2 row"); ct.appendChild(g2);
+  barChart(panel(g2,L("每月收入（全部客戶，RM）"),L("近 12 個月")),months,inc,0);
+  var p4=panel(g2,L("地區分佈")), byP={};
+  DATA.forEach(function(x){ var k=place(x)||"—"; byP[k]=byP[k]||{n:0,ton:0,trees:0}; byP[k].n++; byP[k].ton+=x.sum.tonY; byP[k].trees+=num(plot(x).trees); });
+  simpleTable(p4,[L("地方"),L("客戶數"),L("樹數"),L("今年賣果（噸）")],Object.keys(byP).sort(function(a,b){ return byP[b].n-byP[a].n; }).map(function(k){ return [k,byP[k].n,fx(byP[k].trees),fx(byP[k].ton,1)]; }),[1,2,3]);
+  var p3=panel(ct,L("最新動態")), all=[];
+  DATA.forEach(function(x){ x.recs.forEach(function(r){ all.push([x,r]); }); });
+  all.sort(function(a,b){ return String(b[1].date).localeCompare(String(a[1].date)); }); all=all.slice(0,12);
+  simpleTable(p3,[L("日期"),L("客戶名稱"),L("種類"),L("內容"),L("數字")],all.map(function(p){ var d=describe(p[0],p[1]); return [p[1].date,name(p[0]),el("span","tag "+d.c,d.k),d.w,d.v]; }),[4],function(i){ openDetail(all[i][0]); });
+}
+function describe(x,r){
+  if(r.kind==="harvest") return {k:L("賣果"),c:"a",w:(r.slip?L("磅單號")+" "+r.slip:"")+(r.lorryNo?" · "+r.lorryNo:""),v:fx(hTon(r),2)+" "+L("噸")};
+  if(r.kind==="statement") return {k:L("月結單"),c:"g",w:(r.month||"")+" · "+L("果價")+" RM "+fx(r.price,2),v:"RM "+fx(r.net)};
+  if(r.kind==="expense") return {k:L("開銷"),c:"r",w:(r.cat||"")+(r.note?" · "+r.note:""),v:"RM "+fx(r.amount)};
+  if(r.kind==="fert") return {k:L("放肥"),c:"b",w:"#"+(r.round||"?")+" · "+fertName(x,r.fert),v:fx(r.bags)+" "+L("包")};
+  if(r.kind==="spray") return {k:L("打草藥"),c:"",w:r.note||"",v:""};
+  return {k:r.kind,c:"",w:r.note||r.sym||"",v:""};
+}
+function statusTag(x){ var s=x.sum.status; return s==="act"?["g",L("活躍")]:s==="idle"?["a",L("少用")]:["",L("沒資料")]; }
+function soilNm(x){ var s=plot(x).soil; return s==="peat"?L("泥炭土"):s?L("普通土"):""; }
+var COLS={
+  cust:[["客戶名稱",function(x){ return name(x); }],["Email",function(x){ return x.user.email||""; }],["電話",function(x){ return x.user.phone||""; }],["地方",function(x){ return place(x); }],
+        ["記錄數",function(x){ return x.sum.n; },"n"],["最近記錄",function(x){ return x.sum.last; }],["上次打開",function(x){ return String(x.user.seen||"").slice(0,10); }],["狀態",function(x){ return statusTag(x)[1]; },"tag"]],
+  data:[["客戶名稱",function(x){ return name(x); }],["今年賣果（噸）",function(x){ return x.sum.tonY; },"n2"],["全部賣果（噸）",function(x){ return x.sum.ton; },"n2"],["今年收入（RM）",function(x){ return x.sum.inc; },"n"],
+        ["今年開銷（RM）",function(x){ return x.sum.cost; },"n"],["今年淨賺（RM）",function(x){ return x.sum.inc-x.sum.cost; },"n"],["每畝每年噸數",function(x){ return area(x)?x.sum.tonY/area(x):""; },"n2"],["收果商",function(x){ return sets(x).buyer||""; }]],
+  land:[["客戶名稱",function(x){ return name(x); }],["園名",function(x){ return plot(x).name||""; }],["面積",function(x){ return area(x); },"area"],["樹數",function(x){ return num(plot(x).trees); },"n"],
+        ["種植年",function(x){ return plot(x).year||""; }],["樹齡",function(x){ return plot(x).year?num(YEAR)-num(plot(x).year):""; },"n"],["土質",soilNm],["雨量地點",function(x){ return sets(x).rainPlace||""; }]],
+  fert:[["客戶名稱",function(x){ return name(x); }],["今年輪數",function(x){ return Object.keys(x.sum.rounds).length; },"n"],["今年包數",function(x){ return x.sum.bags; },"n"],["肥料錢（RM）",function(x){ return x.sum.fertRm; },"n"],
+        ["每棵每年公斤",function(x){ var t=num(plot(x).trees); return t?x.sum.kgFert/t:""; },"n2"],["今年計劃",function(x){ return x.sum.plan?L("有"):L("沒有"); },"plan"],["最常用的肥",function(x){ return x.sum.topFert; }]]
+};
+var FILTERS={
+  cust:[["狀態：",function(x){ return statusTag(x)[1]; }],["地方",place]],
+  data:[["收果商：",function(x){ return sets(x).buyer||""; }]],
+  land:[["土質：",soilNm],["地方",place]],
+  fert:[["計劃：",function(x){ return x.sum.plan?L("有"):L("沒有"); }]]
+};
+function rowsFor(page){
+  var term=V.q.trim().toLowerCase(), f=V.f[page]||{};
+  var rows=DATA.filter(function(x){
+    if(term&&[x.user.name,x.user.email,x.user.phone,x.user.town,plot(x).name,sets(x).rainPlace].join(" ").toLowerCase().indexOf(term)<0) return false;
+    return (FILTERS[page]||[]).every(function(fl,i){ return !f[i]||fl[1](x)===f[i]; });
+  });
+  var s=V.sort[page], cols=COLS[page];
+  if(s&&cols[s.i]) rows.sort(function(a,b){ var A=cols[s.i][1](a), B=cols[s.i][1](b); var r=(typeof A==="number"&&typeof B==="number")?A-B:String(A).localeCompare(String(B)); return s.asc?r:-r; });
+  return rows;
+}
+function cell(c,x){ var v=c[1](x), t=c[2];
+  if(t==="n") return v===""?"—":fx(v); if(t==="n2") return v===""?"—":fx(v,2); if(t==="area") return v?fx(v,1)+" "+unitNm(x):"—"; return v===""||v==null?"—":String(v); }
+function drawList(ct){
+  var page=V.page;
+  var p=panel(ct,L(PAGES.filter(function(q){ return q[0]===page; })[0][1])), ph=p.querySelector(".ph");
+  var fl=el("div","filters"); (FILTERS[page]||[]).forEach(function(f,i){
+    var vals={}; DATA.forEach(function(x){ var v=f[1](x); if(v) vals[v]=1; });
+    var s=el("select"), lab=L(f[0]); if(!/：|: $/.test(lab)) lab+=LANG==="zh"?"：":": ";
+    var o0=el("option",null,lab+L("全部")); o0.value=""; s.appendChild(o0);
+    Object.keys(vals).sort().forEach(function(v){ var o=el("option",null,lab+v); o.value=v; s.appendChild(o); });
+    s.value=(V.f[page]||{})[i]||""; s.onchange=function(){ V.f[page]=V.f[page]||{}; V.f[page][i]=s.value; V.pg[page]=0; paintTable(); }; fl.appendChild(s);
+  });
+  ph.appendChild(fl);
+  var tw=el("div","tw"); tw.id="tw"; p.appendChild(tw);
+  var pg=el("div","pager"); pg.id="pager"; p.appendChild(pg);
+  paintTable();
+}
+var PER=25;
+function paintTable(){
+  var page=V.page, tw=$("#tw"), pgr=$("#pager"); if(!tw) return;
+  var cols=COLS[page], rows=rowsFor(page), s=V.sort[page], n=V.pg[page]||0, pages=Math.max(1,Math.ceil(rows.length/PER));
+  if(n>=pages) n=V.pg[page]=pages-1;
+  tw.innerHTML=""; var t=el("table"), th=el("thead"), hr=el("tr");
+  function isNum(c){ return c[2]&&c[2]!=="tag"&&c[2]!=="plan"; }
+  cols.forEach(function(c,i){ var h=el("th","s"+(isNum(c)?" r":""),L(c[0])); if(s&&s.i===i) h.appendChild(el("span","ar",s.asc?"▲":"▼"));
+    h.onclick=function(){ V.sort[page]={i:i,asc:s&&s.i===i?!s.asc:!isNum(c)}; paintTable(); }; hr.appendChild(h); });
+  th.appendChild(hr); t.appendChild(th);
+  var tb=el("tbody");
+  rows.slice(n*PER,(n+1)*PER).forEach(function(x){
+    var tr=el("tr","ck");
+    cols.forEach(function(c){ var td=el("td",isNum(c)?"r num":"");
+      if(c[2]==="tag"){ var st=statusTag(x); td.appendChild(el("span","tag "+st[0],st[1])); }
+      else if(c[2]==="plan"){ td.appendChild(el("span","tag "+(x.sum.plan?"g":"r"),cell(c,x))); }
+      else td.textContent=cell(c,x);
+      tr.appendChild(td); });
+    tr.onclick=function(){ openDetail(x); }; tb.appendChild(tr);
+  });
+  if(!rows.length){ var tr0=el("tr"), td0=el("td","empty",L("還沒有資料")); td0.colSpan=cols.length; tr0.appendChild(td0); tb.appendChild(tr0); }
+  t.appendChild(tb); tw.appendChild(t);
+  pgr.innerHTML=""; pgr.appendChild(el("span",null,L("共")+" "+rows.length+" "+L("位"))); pgr.appendChild(el("span","sp"));
+  var pv=el("button",null,L("上一頁")); pv.disabled=n<=0; pv.onclick=function(){ V.pg[page]=n-1; paintTable(); };
+  var nx=el("button",null,L("下一頁")); nx.disabled=n>=pages-1; nx.onclick=function(){ V.pg[page]=n+1; paintTable(); };
+  pgr.appendChild(pv); pgr.appendChild(el("span",null,(n+1)+" / "+pages)); pgr.appendChild(nx);
+}
+function openDetail(x){ V.detail=x; V.tab="sum"; draw(); window.scrollTo(0,0); }
+function drawDetail(ct){
+  var x=V.detail, back=el("button","tbtn",L("‹ 回客戶列表")); back.style.marginBottom="12px"; back.onclick=function(){ V.detail=null; draw(); }; ct.appendChild(back);
+  var p=el("div","panel"); ct.appendChild(p);
+  var h=el("div","dhead"); h.appendChild(el("div","av",name(x).charAt(0).toUpperCase()));
+  var hm=el("div"); hm.appendChild(el("h2",null,name(x))); hm.appendChild(el("div","meta",[x.user.email,x.user.phone,x.user.town].filter(Boolean).join("  ·  ")));
+  h.appendChild(hm); var sp=el("div"); sp.style.flex="1"; h.appendChild(sp); var st=statusTag(x); h.appendChild(el("span","tag "+st[0],st[1])); p.appendChild(h);
+  var fc=el("div","facts");
+  [[L("今年賣果"),fx(x.sum.tonY,2)+" "+L("噸")],[L("今年收入"),"RM "+fx(x.sum.inc)],[L("今年開銷（RM）"),fx(x.sum.cost)],[L("面積"),area(x)?fx(area(x),1)+" "+unitNm(x):"—"],[L("樹數"),fx(plot(x).trees)],[L("今年肥料"),fx(x.sum.bags)+" "+L("包")]].forEach(function(f){ var d=el("div"); d.appendChild(el("small",null,f[0])); d.appendChild(el("b","num",f[1])); fc.appendChild(d); });
+  p.appendChild(fc);
+  var tabs=el("div","tabs"), body=el("div"); p.appendChild(tabs); p.appendChild(body);
+  [["sum","概要"],["harvest","賣果"],["statement","月結單"],["expense","開銷"],["fert","放肥記錄"],["plan","放肥計劃"]].forEach(function(tb){
+    var b=el("button",V.tab===tb[0]?"on":"",L(tb[1])); if(tb[0]!=="sum"&&tb[0]!=="plan") b.textContent+=" ("+x.recs.filter(function(r){ return r.kind===tb[0]; }).length+")";
+    b.onclick=function(){ V.tab=tb[0]; draw(); }; tabs.appendChild(b); });
+  var recs=x.recs.slice().sort(function(a,b){ return String(b.date).localeCompare(String(a.date)); });
+  function of(k){ return recs.filter(function(r){ return r.kind===k; }); }
+  var pl=plot(x), se=sets(x);
+  if(V.tab==="sum"){
+    var g=el("div","grid2"); g.style.padding="16px"; body.appendChild(g);
+    function kv(title,pairs){ var b=panel(g,title), t=el("table"), tb=el("tbody"); pairs.forEach(function(pp){ var tr=el("tr"); tr.appendChild(el("td","muted",L(pp[0]))); tr.appendChild(el("td","r",pp[1]==null||pp[1]===""?"—":String(pp[1]))); tb.appendChild(tr); }); t.appendChild(tb); b.appendChild(t); }
+    kv(L("園主資料"),[["客戶名稱",name(x)],["Email",x.user.email],["電話",x.user.phone],["地方",x.user.town],["上次打開",String(x.user.seen||"").slice(0,10)],["記錄數",x.sum.n]]);
+    kv(L("園地資料"),[["園名",pl.name],["面積",area(x)?fx(area(x),1)+" "+unitNm(x):""],["樹數",pl.trees],["種植年",pl.year],["土質",soilNm(x)],["雨量地點",se.rainPlace],["收果商",se.buyer],["最常用的肥",x.sum.topFert]]);
+  } else if(V.tab==="harvest"){
+    simpleTable(body,[L("日期"),L("磅單號"),L("羅厘"),L("重量（噸）")],of("harvest").map(function(r){ return [r.date,r.slip,r.lorryNo,fx(hTon(r),2)]; }),[3]);
+  } else if(V.tab==="statement"){
+    simpleTable(body,[L("月份"),L("日期"),L("果價"),L("運費"),L("實收（RM）")],of("statement").map(function(r){ return [r.month,r.date,fx(r.price,2),fx(r.transport),fx(r.net)]; }),[2,3,4]);
+  } else if(V.tab==="expense"){
+    simpleTable(body,[L("日期"),L("類別"),L("備註"),L("金額（RM）")],of("expense").map(function(r){ return [r.date,r.cat,r.note,fx(r.amount)]; }),[3]);
+  } else if(V.tab==="fert"){
+    simpleTable(body,[L("日期"),L("第幾次"),L("肥料"),L("包數"),L("每包（RM）")],of("fert").map(function(r){ return [r.date,r.round,fertName(x,r.fert),fx(r.bags),fx(r.priceBag,2)]; }),[3,4]);
+  } else if(V.tab==="plan"){
+    var rows=[]; (x.st.plans||[]).slice().sort(function(a,b){ return String(b.year).localeCompare(String(a.year)); }).forEach(function(pn){
+      (pn.rounds||[]).forEach(function(r,i){ (r.items||[{fert:r.fert,kg:r.kg}]).forEach(function(it){ rows.push([pn.year,i+1,r.month||r.m,fertName(x,it.fert||it.id),it.kg||it.kgTree,pn.src]); }); }); });
+    simpleTable(body,[L("年"),L("第幾次"),L("月"),L("肥料"),L("每棵公斤"),L("來源")],rows,[4]);
+  }
+}
+
+/* ========== 營運數據：會員都在做什麼 ========== */
+var EVN={"open":"打開 App","view:home":"看首頁","view:bill":"看帳單","view:fert":"看放肥","view:plot":"看數據","form:harvest":"記賣果","form:fert":"記放肥","form:expense":"記開銷","form:statement":"記月結單","form:spray":"記打草藥",
+  "feat:tree":"AI 看樹","feat:voice":"講話記帳","feat:planWizard":"App 排放肥計劃","feat:fertGuide":"看放肥教學","feat:backup":"備份"};
+function evName(k){ var b=k.replace(/:edit$/,""); return L(EVN[b]||b)+(/:edit$/.test(k)?" ("+L("改")+")":""); }
+function ymd(d){ return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); }
+function rangeOf(k){
+  var t=new Date(); t.setHours(0,0,0,0); var a,b,da=function(n){ var x=new Date(t); x.setDate(x.getDate()+n); return x; };
+  if(k==="today"){ a=t; b=t; } else if(k==="yday"){ a=da(-1); b=da(-1); } else if(k==="d7"){ a=da(-6); b=t; } else if(k==="d30"){ a=da(-29); b=t; }
+  else if(k==="month"){ a=new Date(t.getFullYear(),t.getMonth(),1); b=t; } else { a=new Date(t.getFullYear(),t.getMonth()-1,1); b=new Date(t.getFullYear(),t.getMonth(),0); }
+  var n=Math.round((b-a)/864e5)+1, pb=new Date(a); pb.setDate(pb.getDate()-1); var pa=new Date(pb); pa.setDate(pa.getDate()-(n-1));
+  if(k==="month"){ pa=new Date(a.getFullYear(),a.getMonth()-1,1); pb=new Date(a.getFullYear(),a.getMonth()-1,Math.min(b.getDate(),new Date(a.getFullYear(),a.getMonth(),0).getDate())); }
+  if(k==="lmonth"){ pa=new Date(a.getFullYear(),a.getMonth()-1,1); pb=new Date(a.getFullYear(),a.getMonth(),0); }
+  return {a:ymd(a),b:ymd(b),pa:ymd(pa),pb:ymd(pb),n:n};
+}
+function inR(d,a,b){ d=String(d||"").slice(0,10); return d&&d>=a&&d<=b; }
+function signup(x){ var c=x.farm.createdAt||x.user.joined||""; if(!c){ var f=x.recs.map(function(r){ return r._at||r.date; }).filter(Boolean).sort()[0]; c=f||""; } return String(c).slice(0,10); }
+function activeDays(x){ if(x._ad) return x._ad; var s={}; Object.keys(x.user.usage||{}).forEach(function(k){ s[k.slice(0,10)]=1; }); x.recs.forEach(function(r){ if(r._at) s[r._at.slice(0,10)]=1; }); if(x.user.seen) s[String(x.user.seen).slice(0,10)]=1; x._ad=s; return s; }
+function activeIn(x,a,b){ var s=activeDays(x); return Object.keys(s).some(function(d){ return d>=a&&d<=b; }); }
+function recsIn(x,a,b,kind){ return x.recs.filter(function(r){ return (!kind||r.kind===kind)&&inR(r._at||r.date,a,b); }).length; }
+function useIn(x,a,b,ev){ var u=x.user.usage||{}, n=0; Object.keys(u).forEach(function(k){ var d=k.slice(0,10), e=k.slice(11); if(d>=a&&d<=b&&(!ev||e===ev||(ev.slice(-1)==="*"&&e.indexOf(ev.slice(0,-1))===0))) n+=num(u[k]); }); return n; }
+function metrics(a,b){
+  var m={sign:0,act:0,recs:0,harv:0,fert:0,exp:0,stmt:0,opens:0,tree:0,voice:0,plan:0,guide:0};
+  DATA.forEach(function(x){
+    if(inR(signup(x),a,b)) m.sign++;
+    if(activeIn(x,a,b)) m.act++;
+    m.recs+=recsIn(x,a,b); m.harv+=recsIn(x,a,b,"harvest"); m.fert+=recsIn(x,a,b,"fert"); m.exp+=recsIn(x,a,b,"expense"); m.stmt+=recsIn(x,a,b,"statement");
+    m.opens+=useIn(x,a,b,"open"); m.tree+=useIn(x,a,b,"feat:tree"); m.voice+=useIn(x,a,b,"feat:voice"); m.plan+=useIn(x,a,b,"feat:planWizard"); m.guide+=useIn(x,a,b,"feat:fertGuide");
+  });
+  m.per=m.act?m.recs/m.act:0; m.actRate=DATA.length?m.act/DATA.length*100:0; return m;
+}
+function delta(cur,prev,dp,pct){
+  var d=el("div","dl"); d.appendChild(document.createTextNode(L("上一期")+" "+(pct?fx(prev,1)+"%":fx(prev,dp||0))));
+  if(prev||cur){ var df=cur-prev, c=el("span",df>0?"up":df<0?"dn":"",""); c.textContent=" ("+(df>0?"+":"")+(prev?fx(df/prev*100,1)+"%":(df>0?"+"+fx(df,dp||0):fx(df,dp||0)))+")"; d.appendChild(c); }
+  return d;
+}
+var OPS={range:"d7",tab:"sum"};
+function drawOps(ct){
+  var R=rangeOf(OPS.range);
+  var hero=el("div","panel"), hb=el("div","pb"); hero.appendChild(hb); ct.appendChild(hero);
+  var hrow=el("div","hrow"); hb.appendChild(hrow);
+  var ht=el("div"); ht.appendChild(el("h2","bigt",L("營運數據"))); ht.appendChild(el("div","muted",L("會員註冊、每天有沒有回來用、用了哪些功能、記了多少帳。"))); hrow.appendChild(ht);
+  var up=el("div","muted"); up.textContent=L("資料更新於")+" "+LOADED.toTimeString().slice(0,5); hrow.appendChild(up);
+  var rf=el("button","tbtn"); rf.innerHTML=ico(IC.refresh); rf.appendChild(document.createTextNode(L("立即更新"))); rf.onclick=load; hrow.appendChild(rf);
+  var bar=el("div","chips"); bar.appendChild(el("span","muted",L("日期區間")));
+  [["today","今日"],["yday","昨日"],["d7","近 7 天"],["d30","近 30 天"],["month","本月"],["lmonth","上月"]].forEach(function(o){ var b=el("button","chip"+(OPS.range===o[0]?" on":""),L(o[1])); b.onclick=function(){ OPS.range=o[0]; draw(); }; bar.appendChild(b); });
+  bar.appendChild(el("span","muted",R.a+(R.a!==R.b?" – "+R.b:""))); hb.appendChild(bar);
+  var tabs=el("div","chips");
+  [["sum","總覽"],["feat","功能使用"],["funnel","漏斗"],["ret","留存"],["mem","會員活動"]].forEach(function(o){ var b=el("button","chip"+(OPS.tab===o[0]?" on":""),L(o[1])); b.onclick=function(){ OPS.tab=o[0]; draw(); }; tabs.appendChild(b); });
+  ct.appendChild(tabs);
+  var M=metrics(R.a,R.b), P=metrics(R.pa,R.pb);
+  function cards(title,items){
+    ct.appendChild(el("h3","sect",title));
+    var k=el("div","kpis");
+    items.forEach(function(it){ var d=el("div","kpi"); d.appendChild(el("small",null,L(it[0]))); d.appendChild(el("b","num",it[3]?fx(M[it[1]],1)+"%":fx(M[it[1]],it[2]||0))); d.appendChild(delta(M[it[1]],P[it[1]],it[2],it[3])); k.appendChild(d); });
+    ct.appendChild(k);
+  }
+  if(OPS.tab==="sum"){
+    cards(L("會員"),[["新註冊","sign"],["活躍會員","act"],["活躍率","actRate",1,1],["打開 App 次數","opens"],["每位活躍會員記幾筆","per",1]]);
+    cards(L("記帳"),[["新增記錄","recs"],["記賣果","harv"],["記放肥","fert"],["記開銷","exp"],["記月結單","stmt"]]);
+    cards(L("功能"),[["AI 看樹","tree"],["講話記帳","voice"],["App 排放肥計劃","plan"],["看放肥教學","guide"]]);
+    /* 每天活躍會員 */
+    var p=panel(ct,L("每天活躍會員"),R.a+" – "+R.b), days=[], vals={}, d0=new Date(R.a+"T00:00:00"), d1=new Date(R.b+"T00:00:00");
+    if(R.n<7){ d0.setDate(d0.getDate()-(7-R.n)); }
+    for(var d=new Date(d0); d<=d1; d.setDate(d.getDate()+1)) days.push(ymd(d));
+    days.forEach(function(ds){ vals[ds]=DATA.filter(function(x){ return activeDays(x)[ds]; }).length; });
+    var bars=el("div","bars"), mx=Math.max.apply(null,days.map(function(ds){ return vals[ds]; }).concat([1]));
+    days.forEach(function(ds){ var b=el("div","b"); b.appendChild(el("em","num",vals[ds]?String(vals[ds]):"")); var i=el("i"); i.style.height=(vals[ds]/mx*145)+"px"; b.appendChild(i); b.appendChild(el("span",null,days.length>16?(ds.slice(8)==="01"||days.indexOf(ds)%5===0?ds.slice(5):""):ds.slice(5))); bars.appendChild(b); });
+    var pb=el("div","pb"); pb.appendChild(bars); p.appendChild(pb);
+  } else if(OPS.tab==="feat"){
+    var cnt={}, who={};
+    DATA.forEach(function(x){ var u=x.user.usage||{}; Object.keys(u).forEach(function(k){ var ds=k.slice(0,10), ev=k.slice(11); if(ds<R.a||ds>R.b) return; cnt[ev]=(cnt[ev]||0)+num(u[k]); who[ev]=who[ev]||{}; who[ev][x.id]=1; }); });
+    var pc={}; DATA.forEach(function(x){ var u=x.user.usage||{}; Object.keys(u).forEach(function(k){ var ds=k.slice(0,10), ev=k.slice(11); if(ds<R.pa||ds>R.pb) return; pc[ev]=(pc[ev]||0)+num(u[k]); }); });
+    var keys=Object.keys(cnt).sort(function(a,b){ return cnt[b]-cnt[a]; }), mx=Math.max.apply(null,keys.map(function(k){ return cnt[k]; }).concat([1]));
+    var p=panel(ct,L("功能使用排行"),R.a+" – "+R.b);
+    simpleTable(p,[L("功能"),L("次數"),L("用過的會員"),L("上一期"),""],keys.map(function(k){ var b=el("div","hbar"); var i=el("i"); i.style.width=(cnt[k]/mx*100)+"%"; b.appendChild(i); return [evName(k),fx(cnt[k]),Object.keys(who[k]).length,fx(pc[k]||0),b]; }),[1,2,3]);
+    ct.appendChild(el("p","muted note",L("「次數」是打開那個畫面或按那個功能的次數；手機上的 App 要有網路才會把次數送上來。")));
+  } else if(OPS.tab==="funnel"){
+    var steps=[["註冊",function(){ return true; }],["填了園地（樹數）",function(x){ return num(plot(x).trees)>0; }],["記過第一筆賣果",function(x){ return x.recs.some(function(r){ return r.kind==="harvest"; }); }],
+      ["記過放肥",function(x){ return x.recs.some(function(r){ return r.kind==="fert"; }); }],["有今年放肥計劃",function(x){ return x.sum.plan; }],["30 天內有回來",function(x){ var t=new Date(); t.setDate(t.getDate()-29); return activeIn(x,ymd(t),TODAY); }]];
+    var p=panel(ct,L("會員漏斗"),L("全部會員，到今天為止")), pb=el("div","pb funnel"); p.appendChild(pb);
+    var base=DATA.length||1, prev=DATA.length;
+    steps.forEach(function(s,i){ var n=DATA.filter(s[1]).length, r=el("div","fstep");
+      r.appendChild(el("div","fl",(i+1)+". "+L(s[0]))); var b=el("div","fb"); var bi=el("i"); bi.style.width=(n/base*100)+"%"; b.appendChild(bi); r.appendChild(b);
+      r.appendChild(el("div","fn num",fx(n)+"  ·  "+fx(n/base*100,0)+"%"+(i?"  ·  "+L("上一步的")+" "+(prev?fx(n/prev*100,0):0)+"%":""))); pb.appendChild(r); prev=n; });
+    ct.appendChild(el("p","muted note",L("掉最多的那一步，就是最需要改的地方。")));
+  } else if(OPS.tab==="ret"){
+    var p=panel(ct,L("留存"),L("註冊以後還有沒有回來用")), rows=[];
+    [[1,"第 1 天後"],[7,"第 7 天後"],[30,"第 30 天後"]].forEach(function(r){
+      var elig=DATA.filter(function(x){ var s=signup(x); return s&&daysAgo(s)>=r[0]; }), kept=elig.filter(function(x){ var s=new Date(signup(x)+"T00:00:00"); s.setDate(s.getDate()+r[0]); var ds=ymd(s); return Object.keys(activeDays(x)).some(function(d){ return d>=ds; }); });
+      rows.push([L(r[1]),fx(elig.length),fx(kept.length),elig.length?fx(kept.length/elig.length*100,0)+"%":"—"]); });
+    simpleTable(p,[L("時間"),L("夠久的會員"),L("有回來"),L("留存率")],rows,[1,2,3]);
+    var p2=panel(ct,L("每週新會員還在用嗎"),L("近 8 週")), wk=[], t=new Date(); t.setHours(0,0,0,0); t.setDate(t.getDate()-((t.getDay()+6)%7));
+    for(var w=7;w>=0;w--){ var a=new Date(t); a.setDate(a.getDate()-7*w); var b=new Date(a); b.setDate(b.getDate()+6); wk.push([ymd(a),ymd(b)]); }
+    simpleTable(p2,[L("註冊那週"),L("新會員"),L("第 2 週"),L("第 3 週"),L("第 4 週")],wk.map(function(w){
+      var c=DATA.filter(function(x){ return inR(signup(x),w[0],w[1]); }), out=[w[0].slice(5)+" – "+w[1].slice(5),c.length];
+      for(var k=1;k<=3;k++){ var a=new Date(w[0]+"T00:00:00"); a.setDate(a.getDate()+7*k); var b=new Date(a); b.setDate(b.getDate()+6); if(a>new Date()){ out.push("—"); continue; }
+        var n=c.filter(function(x){ return activeIn(x,ymd(a),ymd(b)); }).length; out.push(c.length?fx(n/c.length*100,0)+"% ("+n+")":"—"); }
+      return out; }),[1,2,3,4]);
+  } else if(OPS.tab==="mem"){
+    var list=DATA.map(function(x){ var ad=Object.keys(activeDays(x)).filter(function(d){ return d>=R.a&&d<=R.b; }).length, u=x.user.usage||{}, top={};
+      Object.keys(u).forEach(function(k){ var ds=k.slice(0,10), ev=k.slice(11); if(ds<R.a||ds>R.b||ev==="open"||ev.indexOf("view:")===0) return; top[ev]=(top[ev]||0)+num(u[k]); });
+      var tk=Object.keys(top).sort(function(a,b){ return top[b]-top[a]; })[0], last=Object.keys(activeDays(x)).sort().pop()||"";
+      return {x:x,ad:ad,recs:recsIn(x,R.a,R.b),opens:useIn(x,R.a,R.b,"open"),top:tk?evName(tk):"",last:last}; });
+    list.sort(function(a,b){ return b.ad-a.ad||b.recs-a.recs; });
+    var p=panel(ct,L("會員活動"),R.a+" – "+R.b);
+    simpleTable(p,[L("客戶名稱"),L("註冊日"),L("最後一次用"),L("用了幾天"),L("打開次數"),L("新增記錄"),L("最常用的功能"),L("裝置")],list.map(function(o){
+      return [o.x.user.name||name(o.x),signup(o.x),o.last,o.ad,o.opens,o.recs,o.top,o.x.user.plat||""]; }),[3,4,5],function(i){ openDetail(list[i].x); });
+  }
+}
+/* 下載：目前這一頁的表格存成 CSV（Excel 打得開，中文不亂碼） */
+function exportCsv(){
+  var rows, heads, nm;
+  if(V.detail){ var x=V.detail; heads=[L("日期"),L("種類"),L("內容"),L("數字")]; rows=x.recs.slice().sort(function(a,b){ return String(b.date).localeCompare(String(a.date)); }).map(function(r){ var d=describe(x,r); return [r.date,d.k,d.w,d.v]; }); nm=name(x); }
+  else if(V.page==="ops"){ var R=rangeOf(OPS.range); heads=[L("客戶名稱"),"Email",L("註冊日"),L("最後一次用"),L("用了幾天"),L("打開次數"),L("新增記錄")];
+    rows=DATA.map(function(x){ return [name(x),x.user.email||"",signup(x),Object.keys(activeDays(x)).sort().pop()||"",Object.keys(activeDays(x)).filter(function(d){ return d>=R.a&&d<=R.b; }).length,useIn(x,R.a,R.b,"open"),recsIn(x,R.a,R.b)]; }); nm="ops-"+R.a+"_"+R.b; }
+  else { var page=V.page==="dash"?"data":V.page, cols=COLS[page]; heads=cols.map(function(c){ return L(c[0]); }); rows=rowsFor(page).map(function(x){ return cols.map(function(c){ return cell(c,x); }); }); nm=page; }
+  var esc=function(v){ v=String(v==null?"":v); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; };
+  var csv="﻿"+[heads].concat(rows).map(function(r){ return r.map(esc).join(","); }).join("\r\n");
+  var a=el("a"); a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"})); a.download="oilpalm-"+nm+"-"+TODAY+".csv"; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); },500);
+}
+boot();
 })();
 </script>
 </body>
