@@ -116,6 +116,49 @@ tbody tr.ck:hover td{background:var(--accs)}
 .err{color:var(--dn);min-height:1.4em;margin-top:12px;font-size:13px}
 .empty{padding:40px;text-align:center;color:var(--ink3)}
 .spin{padding:80px;text-align:center;color:var(--ink3)}
+/* 肥料廣告商：14 州、視窗、匯入預覽 */
+.sttiles{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;padding:14px 16px}
+.stt{border:1px solid var(--rule);border-radius:10px;padding:8px 10px;background:var(--card);text-align:left;min-width:0}
+.stt b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stt span{font-size:12px;color:var(--ink3)}
+.stt.has{background:var(--ups);border-color:transparent} .stt.has span{color:var(--up);font-weight:600}
+.stt.on{outline:2px solid var(--acc);outline-offset:-1px}
+td.wrap{white-space:normal;min-width:220px;max-width:380px}
+.tbtn.sm{padding:3px 9px;font-size:12px}
+.tbtn.dng{color:var(--dn)}
+.modal{position:fixed;inset:0;background:rgba(21,32,43,.5);display:flex;align-items:flex-start;justify-content:center;padding:4vh 16px;z-index:30;overflow:auto}
+.mbox{background:var(--card);border-radius:14px;width:min(680px,100%);box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.mbox.wide{width:min(1180px,100%)}
+.mh{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--rule)}
+.mh h2{margin:0;font-size:16px;flex:1}
+.mh .x{border:0;background:none;font-size:24px;line-height:1;color:var(--ink3);padding:0 4px}
+.mb{padding:16px 18px}
+.mf{display:flex;gap:8px;align-items:center;padding:12px 18px;border-top:1px solid var(--rule);flex-wrap:wrap}
+.mf .sp{flex:1}
+.fld{display:block;margin-bottom:12px}
+.fld>span{display:block;font-size:12px;color:var(--ink2);font-weight:600;margin-bottom:4px}
+.fld>span em{font-style:normal;font-weight:400;color:var(--ink3)}
+.fld input,.fld select,.fld textarea,.imp textarea{width:100%;border:1px solid var(--rule);border-radius:8px;padding:8px 10px;background:var(--card);font:inherit}
+.fld textarea{min-height:60px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus,.imp textarea:focus{outline:2px solid var(--accs);border-color:var(--acc)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ckline{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2)}
+.mapbox{border:1px solid var(--rule);border-radius:10px;overflow:hidden;height:230px;background:var(--head);display:grid;place-items:center;color:var(--ink3);font-size:13px}
+.mapbox iframe{width:100%;height:100%;border:0;display:block}
+.hintbox{background:var(--accs);border-radius:10px;padding:10px 14px;color:var(--ink2);font-size:13px;line-height:1.7;margin-bottom:12px}
+.hintbox b{color:var(--ink)}
+.imp textarea{min-height:260px;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace}
+.filebtn{display:inline-flex;align-items:center;gap:6px}
+.filebtn input{display:none}
+.prev td{padding:5px 6px;vertical-align:top;border-bottom:1px solid var(--rule)}
+.prev th{padding:7px 6px}
+.prev input,.prev select{width:100%;min-width:120px;border:1px solid var(--rule);border-radius:6px;padding:5px 7px;font:inherit;font-size:13px;background:var(--card)}
+.prev td.ad input{min-width:260px}
+.prev input.miss,.prev select.miss{border-color:var(--dn);background:var(--dns)}
+.prev .x{border:0;background:none;color:var(--ink3);font-size:18px;line-height:1;padding:4px}
+.formerr{color:var(--dn);font-size:13px}
+.flash{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--side);color:#fff;padding:10px 18px;border-radius:10px;z-index:40;box-shadow:0 10px 30px rgba(0,0,0,.25);font-size:14px}
+@media (max-width:900px){.sttiles{grid-template-columns:repeat(2,minmax(0,1fr))}.frow{grid-template-columns:1fr}}
 @media (max-width:1180px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.facts{grid-template-columns:repeat(3,minmax(0,1fr))}.facts div:nth-child(3n){border-right:0}}
 @media (max-width:900px){
   .app{grid-template-columns:1fr}
@@ -309,7 +352,82 @@ var DICT={
 "近 30 天":["近 30 天", "30 hari", "Last 30 days"],
 "近 7 天":["近 7 天", "7 hari", "Last 7 days"],
 "近 8 週":["近 8 周", "8 minggu", "Last 8 weeks"],
-"年以下":["年以下","tahun ke bawah","yrs and under"],"年以上":["年以上","tahun ke atas","yrs and over"]
+"年以下":["年以下","tahun ke bawah","yrs and under"],"年以上":["年以上","tahun ke atas","yrs and over"],
+/* 肥料廣告商 */
+"肥料廣告商":["肥料广告商","Pengiklan baja","Fertiliser advertisers"],
+"前台":["前台","Papar","Shown"],
+"搜尋廣告商、電話、地址":["搜索广告商、电话、地址","Cari pengiklan, telefon, alamat","Search advertisers, phone, address"],
+"州":["州","Negeri","State"],
+"公司名字":["公司名字","Nama syarikat","Company"],
+"名字":["名字","Nama","Name"],
+"地址":["地址","Alamat","Address"],
+"Google 地圖":["Google 地图","Google Maps","Google Maps"],
+"賣什麼／備註":["卖什么／备注","Catatan","Notes"],
+"顯示":["显示","Papar","Shown"],
+"隱藏":["隐藏","Sembunyi","Hidden"],
+"存不進去：Firestore 的 Rules 還沒換成有肥料廣告商的那一版。":["存不进去：Firestore 的 Rules 还没换成有肥料广告商的那一版。","Tidak dapat simpan: Rules Firestore belum dikemas kini untuk pengiklan baja.","Can't save: the Firestore Rules don't include fertiliser advertisers yet."],
+"存不進去：":["存不进去：","Tidak dapat simpan: ","Can't save: "],
+"Firestore 的 Rules 還沒換成有肥料廣告商的那一版。":["Firestore 的 Rules 还没换成有肥料广告商的那一版。","Rules Firestore belum dikemas kini untuk pengiklan baja.","The Firestore Rules don't include fertiliser advertisers yet."],
+"廣告商":["广告商","Pengiklan","Advertisers"],
+"前台顯示中":["前台显示中","Dipaparkan","Shown in app"],
+"家隱藏":["家隐藏","disembunyi","hidden"],
+"有廣告的州":["有广告的州","Negeri ada iklan","States with ads"],
+"還沒有廣告的州":["还没有广告的州","Negeri tiada iklan","States without ads"],
+"馬來西亞 14 個州":["马来西亚 14 个州","14 negeri Malaysia","Malaysia's 14 states"],
+"點一州只看那一州；再點一次看全部":["点一州只看那一州；再点一次看全部","Klik negeri untuk tapis; klik lagi untuk semua","Click a state to filter; click again for all"],
+"家":["家","kedai","shops"],
+"還沒有":["还没有","Tiada","None yet"],
+"沒填州的":["没填州的","Tiada negeri","No state"],
+"前台看不到，請點進去選州。":["前台看不到，请点进去选州。","Tidak dipaparkan dalam app — buka dan pilih negeri.","Not shown in the app — open it and pick a state."],
+"廣告商名單":["广告商名单","Senarai pengiklan","Advertiser list"],
+"匯入（貼上或選檔案）":["导入（粘贴或选文件）","Import (tampal atau pilih fail)","Import (paste or choose file)"],
+"＋ 新增一家":["＋ 新增一家","＋ Tambah","＋ Add one"],
+"被點":["被点","Klik","Clicks"],
+"修改":["修改","Ubah","Edit"],
+"沒填州":["没填州","Tiada negeri","No state"],
+"還沒有廣告商。按「匯入」，把廣告商傳給你的資料整段貼進來就好。":["还没有广告商。按「导入」，把广告商传给你的资料整段粘贴进来就好。","Belum ada pengiklan. Tekan 'Import' dan tampal maklumat yang mereka hantar.","No advertisers yet. Press 'Import' and paste what they sent you."],
+"關掉":["关掉","Tutup","Close"],
+"— 選州 —":["— 选州 —","— Pilih negeri —","— Pick a state —"],
+"新增肥料廣告商":["新增肥料广告商","Tambah pengiklan baja","Add fertiliser advertiser"],
+"修改肥料廣告商":["修改肥料广告商","Ubah pengiklan baja","Edit fertiliser advertiser"],
+"聯絡人":["联络人","orang hubungan","contact person"],
+"好幾個用 / 分開":["好几个用 / 分开","pisahkan dengan /","separate with /"],
+"照地址自動選":["照地址自动选","dipilih ikut alamat","picked from the address"],
+"Google 地圖連結":["Google 地图链接","Pautan Google Maps","Google Maps link"],
+"可以不填；有的話導航更準":["可以不填；有的话导航更准","pilihan; navigasi lebih tepat","optional; makes navigation more accurate"],
+"可以不填，前台會顯示":["可以不填，前台会显示","pilihan, dipaparkan dalam app","optional, shown in the app"],
+"打了地址，這裡會出現地圖":["打了地址，这里会出现地图","Taip alamat, peta akan keluar di sini","Type an address and the map shows here"],
+"在前台顯示":["在前台显示","Papar dalam app","Show in the app"],
+"刪除":["删除","Padam","Delete"],
+"確定刪除這一家？前台也會不見。":["确定删除这一家？前台也会不见。","Padam kedai ini? Ia juga hilang dari app.","Delete this shop? It will disappear from the app too."],
+"刪掉了":["删掉了","Sudah dipadam","Deleted"],
+"在 Google 地圖打開":["在 Google 地图打开","Buka di Google Maps","Open in Google Maps"],
+"取消":["取消","Batal","Cancel"],
+"存起來":["存起来","Simpan","Save"],
+"公司名字和名字至少填一個":["公司名字和名字至少填一个","Isi sekurang-kurangnya nama syarikat atau nama","Fill in at least the company or the name"],
+"請選州，前台是照州顯示的":["请选州，前台是照州显示的","Pilih negeri — app memaparkan ikut negeri","Pick a state — the app lists shops by state"],
+"存好了，前台已經看得到":["存好了，前台已经看得到","Disimpan, sudah dipaparkan dalam app","Saved, it now shows in the app"],
+"匯入肥料廣告商":["导入肥料广告商","Import pengiklan baja","Import fertiliser advertisers"],
+"把廣告商傳給你的資料整段貼進來":["把广告商传给你的资料整段粘贴进来","Tampal terus maklumat yang pengiklan hantar","Paste whatever the advertiser sent you"],
+"（WhatsApp 訊息、名片上的字、Excel 複製都可以）。":["（WhatsApp 讯息、名片上的字、Excel 复制都可以）。"," (mesej WhatsApp, kad nama, salinan Excel — semua boleh)."," (WhatsApp messages, business card text or cells copied from Excel all work)."],
+"一次可以貼很多家，每家中間空一行。名字、公司、電話、地址、州會自己認出來，存進去以前會先給你看。":["一次可以粘贴很多家，每家中间空一行。名字、公司、电话、地址、州会自己认出来，存进去以前会先给你看。","Boleh tampal banyak kedai sekali gus, satu baris kosong antara setiap kedai. Nama, syarikat, telefon, alamat dan negeri dikenal pasti sendiri, dan anda boleh semak sebelum simpan.","Paste many at once with a blank line between shops. Name, company, phone, address and state are picked out automatically, and you check them before saving."],
+"也可以選手機傳來的聯絡人檔（.vcf）或 Excel 存的 CSV。":["也可以选手机传来的联络人档（.vcf）或 Excel 存的 CSV。","Boleh juga pilih fail kenalan (.vcf) atau CSV dari Excel.","You can also choose a contact file (.vcf) or a CSV saved from Excel."],
+"例如：":["例如：","Contoh:","For example:"],
+"選檔案（.vcf / .csv / .txt）":["选文件（.vcf / .csv / .txt）","Pilih fail (.vcf / .csv / .txt)","Choose file (.vcf / .csv / .txt)"],
+"整理一下 →":["整理一下 →","Susun →","Sort it out →"],
+"認不出任何一家，先貼上資料":["认不出任何一家，先粘贴资料","Tiada kedai dikenal pasti — tampal maklumat dahulu","Couldn't find any shop — paste the details first"],
+"看一下，對了就存進去":["看一下，对了就存进去","Semak, kemudian simpan","Check, then save"],
+"每一格都可以直接改。紅色是缺的：沒有州的前台看不到。電話跟已經有的一樣，會更新那一家，不會變兩家。":["每一格都可以直接改。红色是缺的：没有州的前台看不到。电话跟已经有的一样，会更新那一家，不会变两家。","Setiap kotak boleh diubah. Merah bermaksud tiada: tanpa negeri, ia tidak dipaparkan. Jika telefon sama dengan yang sedia ada, kedai itu dikemas kini, bukan ditambah dua kali.","Every cell can be edited. Red means missing: without a state it won't show in the app. If the phone matches an existing shop, that shop is updated instead of added twice."],
+"已經有，會更新":["已经有，会更新","Sedia ada, dikemas kini","Exists, will update"],
+"新的":["新的","Baru","New"],
+"這一家不要":["这一家不要","Buang kedai ini","Drop this one"],
+"全部存進去":["全部存进去","Simpan semua","Save all"],
+"← 回去改":["← 回去改","← Kembali","← Back"],
+"有幾家公司名字和名字都是空的，填一下或按 × 拿掉":["有几家公司名字和名字都是空的，填一下或按 × 拿掉","Ada kedai tanpa nama syarikat dan nama — isi atau tekan × untuk buang","Some shops have neither company nor name — fill one in or press × to drop them"],
+"家沒有選州，前台會看不到。還是要存嗎？":["家没有选州，前台会看不到。还是要存吗？","kedai tiada negeri dan tidak akan dipaparkan. Simpan juga?","shops have no state and won't show in the app. Save anyway?"],
+"匯入好了：":["导入好了：","Siap diimport: ","Imported: "],
+"打肥料店電話":["打肥料店电话","Telefon kedai baja","Called a fertiliser shop"],
+"看肥料店地圖":["看肥料店地图","Lihat peta kedai baja","Opened a fertiliser shop map"]
 };
 var LANG=(function(){ try{ var v=localStorage.getItem("op-admin-lang"); if(v) return v; }catch(e){} var n=(navigator.language||"").toLowerCase(); return n.indexOf("ms")===0?"ms":n.indexOf("en")===0?"en":"zh"; })();
 function L(t){ var r=DICT[t]; return r?r[{zh:0,ms:1,en:2}[LANG]||0]:t; }
@@ -332,7 +450,8 @@ var IC={
   search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',
   refresh:'<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/>',
   dl:'<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
-  ops:'<path d="M3 17l5-5 4 4 8-9"/><path d="M15 7h5v5"/>'
+  ops:'<path d="M3 17l5-5 4 4 8-9"/><path d="M15 7h5v5"/>',
+  ad:'<path d="M4 10v4a1 1 0 0 0 1 1h2l5 4V5L7 9H5a1 1 0 0 0-1 1z"/><path d="M16 8.5a5 5 0 0 1 0 7M19 6a9 9 0 0 1 0 12"/>'
 };
 var YEAR=String(new Date().getFullYear()), TODAY=new Date().toISOString().slice(0,10);
 function daysAgo(d){ if(!d) return 9999; return Math.round((Date.now()-new Date(String(d).slice(0,10)).getTime())/864e5); }
@@ -432,6 +551,7 @@ function boot(){
   });
 }
 function load(){
+  ADS=null;
   root.innerHTML='<div class="spin">'+L("讀取資料中…")+'</div>';
   (DEMO?loadDemo():loadReal()).then(function(list){
     DATA=list.map(summarise); LOADED=new Date(); draw();
@@ -445,7 +565,7 @@ function load(){
 }
 
 /* ---------- 版面：左邊功能選單、上面工具列、中間內容 ---------- */
-var PAGES=[["dash","總覽","dash"],["fert","放肥","fert"],["ops","營運數據","ops"],["cust","客戶","users"],["data","產量與收支","data"],["land","園地","land"]];
+var PAGES=[["dash","總覽","dash"],["fert","放肥","fert"],["ops","營運數據","ops"],["cust","客戶","users"],["data","產量與收支","data"],["land","園地","land"],["ads","肥料廣告商","ad"]];
 function go(p){ V.page=p; V.detail=null; V.tab="sum"; draw(); window.scrollTo(0,0); }
 function draw(){
   root.innerHTML="";
@@ -455,8 +575,10 @@ function draw(){
   nav.appendChild(el("div","grp",L("主選單")));
   PAGES.forEach(function(p,i){
     if(i===3) nav.appendChild(el("div","grp",L("會員與報表")));
+    if(p[0]==="ads") nav.appendChild(el("div","grp",L("前台")));
     var b=el("button",(!V.detail&&V.page===p[0])||(V.detail&&p[0]==="cust")?"on":""); b.innerHTML=ico(IC[p[2]]); b.appendChild(el("span",null,L(p[1])));
     if(p[0]==="cust") b.appendChild(el("span","ct",String(DATA.length)));
+    if(p[0]==="ads"&&ADS) b.appendChild(el("span","ct",String(ADS.length)));
     b.onclick=function(){ go(p[0]); }; nav.appendChild(b);
   });
   side.appendChild(nav);
@@ -470,10 +592,10 @@ function draw(){
   app.appendChild(side); app.appendChild(main);
   var top=el("div","top"), cr=el("div","crumb");
   var title=V.detail?name(V.detail):L(PAGES.filter(function(p){ return p[0]===V.page; })[0][1]);
-  cr.appendChild(el("small",null,"OIL PALM ERP / "+(V.detail?L("客戶"):L(V.page==="dash"?"總覽":V.page==="ops"?"會員與報表":"報表"))));
+  cr.appendChild(el("small",null,"OIL PALM ERP / "+(V.detail?L("客戶"):L(V.page==="dash"?"總覽":V.page==="ops"?"會員與報表":V.page==="ads"?"前台":"報表"))));
   cr.appendChild(el("h1",null,title)); top.appendChild(cr);
-  var sw=el("label","search"); sw.innerHTML=ico(IC.search); var q=el("input"); q.placeholder=L("搜尋客戶、Email、電話、地方"); q.value=V.q;
-  q.oninput=function(){ V.q=q.value; if(V.page==="dash"||V.page==="ops"||V.detail){ V.page="cust"; V.detail=null; draw(); var n=$(".search input"); n.focus(); n.setSelectionRange(n.value.length,n.value.length); return; } V.pg[V.page]=0; paintTable(); };
+  var sw=el("label","search"); sw.innerHTML=ico(IC.search); var q=el("input"); q.placeholder=V.page==="ads"?L("搜尋廣告商、電話、地址"):L("搜尋客戶、Email、電話、地方"); q.value=V.q;
+  q.oninput=function(){ V.q=q.value; if(V.page==="ads"&&!V.detail){ draw(); var n0=$(".search input"); n0.focus(); n0.setSelectionRange(n0.value.length,n0.value.length); return; } if(V.page==="dash"||V.page==="ops"||V.detail){ V.page="cust"; V.detail=null; draw(); var n=$(".search input"); n.focus(); n.setSelectionRange(n.value.length,n.value.length); return; } V.pg[V.page]=0; paintTable(); };
   sw.appendChild(q); top.appendChild(sw);
   top.appendChild(el("span","upd",L("更新於")+" "+LOADED.toTimeString().slice(0,5)));
   var rf=el("button","tbtn"); rf.innerHTML=ico(IC.refresh); rf.appendChild(document.createTextNode(L("重新整理"))); rf.onclick=load; top.appendChild(rf);
@@ -482,7 +604,7 @@ function draw(){
   var ct=el("div","content"); main.appendChild(ct);
   var mf=el("div","mfoot"); footBits(mf); main.appendChild(mf);
   root.appendChild(app);
-  if(V.detail) drawDetail(ct); else if(V.page==="dash") drawDash(ct); else if(V.page==="ops") drawOps(ct); else drawList(ct);
+  if(V.detail) drawDetail(ct); else if(V.page==="dash") drawDash(ct); else if(V.page==="ops") drawOps(ct); else if(V.page==="ads") drawAds(ct); else drawList(ct);
 }
 function kpis(host,items){ var k=el("div","kpis"); items.forEach(function(it){ var d=el("div","kpi"); d.appendChild(el("small",null,it[0])); d.appendChild(el("b","num",it[1])); if(it[2]) d.appendChild(el("i",null,it[2])); k.appendChild(d); }); host.appendChild(k); }
 function panel(host,title,sub){ var p=el("div","panel"), h=el("div","ph"); h.appendChild(el("h2",null,title)); if(sub) h.appendChild(el("span","sub",sub)); p.appendChild(h); host.appendChild(p); return p; }
@@ -641,7 +763,7 @@ function drawDetail(ct){
 
 /* ========== 營運數據：會員都在做什麼 ========== */
 var EVN={"open":"打開 App","view:home":"看首頁","view:bill":"看帳單","view:fert":"看放肥","view:plot":"看數據","form:harvest":"記賣果","form:fert":"記放肥","form:expense":"記開銷","form:statement":"記月結單","form:spray":"記打草藥",
-  "feat:tree":"AI 看樹","feat:voice":"講話記帳","feat:planWizard":"App 排放肥計劃","feat:fertGuide":"看放肥教學","feat:backup":"備份"};
+  "feat:tree":"AI 看樹","feat:voice":"講話記帳","feat:planWizard":"App 排放肥計劃","feat:fertGuide":"看放肥教學","feat:backup":"備份","feat:adCall":"打肥料店電話","feat:adMap":"看肥料店地圖"};
 function evName(k){ var b=k.replace(/:edit$/,""); return L(EVN[b]||b)+(/:edit$/.test(k)?" ("+L("改")+")":""); }
 function ymd(d){ return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); }
 function rangeOf(k){
@@ -709,7 +831,7 @@ function drawOps(ct){
     var pb=el("div","pb"); pb.appendChild(bars); p.appendChild(pb);
   } else if(OPS.tab==="feat"){
     var cnt={}, who={};
-    DATA.forEach(function(x){ var u=x.user.usage||{}; Object.keys(u).forEach(function(k){ var ds=k.slice(0,10), ev=k.slice(11); if(ds<R.a||ds>R.b) return; cnt[ev]=(cnt[ev]||0)+num(u[k]); who[ev]=who[ev]||{}; who[ev][x.id]=1; }); });
+    DATA.forEach(function(x){ var u=x.user.usage||{}; Object.keys(u).forEach(function(k){ var ds=k.slice(0,10), ev=k.slice(11); if(ds<R.a||ds>R.b||ev.indexOf("ad:")===0) return; cnt[ev]=(cnt[ev]||0)+num(u[k]); who[ev]=who[ev]||{}; who[ev][x.id]=1; }); });
     var pc={}; DATA.forEach(function(x){ var u=x.user.usage||{}; Object.keys(u).forEach(function(k){ var ds=k.slice(0,10), ev=k.slice(11); if(ds<R.pa||ds>R.pb) return; pc[ev]=(pc[ev]||0)+num(u[k]); }); });
     var keys=Object.keys(cnt).sort(function(a,b){ return cnt[b]-cnt[a]; }), mx=Math.max.apply(null,keys.map(function(k){ return cnt[k]; }).concat([1]));
     var p=panel(ct,L("功能使用排行"),R.a+" – "+R.b);
@@ -752,12 +874,380 @@ function drawOps(ct){
 function exportCsv(){
   var rows, heads, nm;
   if(V.detail){ var x=V.detail; heads=[L("日期"),L("種類"),L("內容"),L("數字")]; rows=x.recs.slice().sort(function(a,b){ return String(b.date).localeCompare(String(a.date)); }).map(function(r){ var d=describe(x,r); return [r.date,d.k,d.w,d.v]; }); nm=name(x); }
+  else if(V.page==="ads"&&ADS){ heads=[L("州"),L("公司名字"),L("名字"),L("電話"),L("地址"),L("Google 地圖"),L("賣什麼／備註"),L("前台")];
+    rows=ADS.slice().sort(function(a,b){ return stIdx(a.state)-stIdx(b.state); }).map(function(d){ return [stName(d.state),d.company,d.name,d.phone,d.address,d.map,d.note,d.on!==false?L("顯示"):L("隱藏")]; }); nm="dealers"; }
   else if(V.page==="ops"){ var R=rangeOf(OPS.range); heads=[L("客戶名稱"),"Email",L("註冊日"),L("最後一次用"),L("用了幾天"),L("打開次數"),L("新增記錄")];
     rows=DATA.map(function(x){ return [name(x),x.user.email||"",signup(x),Object.keys(activeDays(x)).sort().pop()||"",Object.keys(activeDays(x)).filter(function(d){ return d>=R.a&&d<=R.b; }).length,useIn(x,R.a,R.b,"open"),recsIn(x,R.a,R.b)]; }); nm="ops-"+R.a+"_"+R.b; }
   else { var page=V.page==="dash"?"data":V.page, cols=COLS[page]; heads=cols.map(function(c){ return L(c[0]); }); rows=rowsFor(page).map(function(x){ return cols.map(function(c){ return cell(c,x); }); }); nm=page; }
   var esc=function(v){ v=String(v==null?"":v); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; };
   var csv="﻿"+[heads].concat(rows).map(function(r){ return r.map(esc).join(","); }).join("\r\n");
   var a=el("a"); a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"})); a.download="oilpalm-"+nm+"-"+TODAY+".csv"; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); },500);
+}
+/* ==================== 肥料廣告商 ====================
+   前台（App 和網頁版的「放肥」頁）照馬來西亞 14 州列出肥料店：公司、名字、電話、地址、Google 地圖。
+   這裡新增、修改、刪除；「匯入」把廣告商傳來的一段字（WhatsApp、名片、Excel 複製、聯絡人 .vcf）直接變成資料，不用一個一個字打。
+   雲端位置：dealers/{id}，規則是登入的人都能看、只有管理員能改。 */
+var STATES=[["johor","柔佛","Johor"],["kedah","吉打","Kedah"],["kelantan","吉兰丹","Kelantan"],["melaka","马六甲","Melaka"],["nsembilan","森美兰","Negeri Sembilan"],
+  ["pahang","彭亨","Pahang"],["penang","槟城","Pulau Pinang"],["perak","霹雳","Perak"],["perlis","玻璃市","Perlis"],["sabah","沙巴","Sabah"],
+  ["sarawak","砂拉越","Sarawak"],["selangor","雪兰莪","Selangor"],["terengganu","登嘉楼","Terengganu"],["wp","联邦直辖区","W.P. KL / Putrajaya / Labuan"]];
+function stName(k){ for(var i=0;i<STATES.length;i++) if(STATES[i][0]===k) return LANG==="zh"?STATES[i][1]+" "+STATES[i][2]:STATES[i][2]; return ""; }
+function stIdx(k){ for(var i=0;i<STATES.length;i++) if(STATES[i][0]===k) return i; return 99; }
+
+/* DEALER-PARSE-START ── 把一段字變成廣告商資料（純函式，tests/test_dealers.js 會切出來測） */
+var AD_FIELDS=["name","company","phone","address","state","map","note","on"];
+var AD_LABELS=[
+  ["name",/^(名字|姓名|聯絡人|联络人|聯繫人|联系人|負責人|负责人|老闆|老板|name|nama|contact|contact person|person in charge|pic)$/i],
+  ["company",/^(公司|公司名字|公司名稱|公司名称|商號|商号|店名|店|company|company name|syarikat|nama syarikat|kedai|shop)$/i],
+  ["phone",/^(電話|电话|手機|手机|聯絡電話|联络电话|聯繫電話|联系电话|tel|tel\.|telefon|phone|phone no\.?|h\/p|hp|mobile|no\.? ?tel|no\.? ?telefon|whatsapp|wa)$/i],
+  ["address",/^(地址|address|alamat)$/i],
+  ["state",/^(州|州屬|州属|state|negeri)$/i],
+  ["map",/^(地圖|地图|google ?maps?|google 地圖|google 地图|maps?|location|lokasi|位置)$/i],
+  ["note",/^(賣什麼|卖什么|產品|产品|備註|备注|賣什麼／備註|卖什么／备注|note|notes|products|produk|catatan|remarks?)$/i],
+  ["on",/^(前台|顯示|显示|shown|show|papar)$/i]
+];
+var AD_CANON={name:"名字",company:"公司",phone:"電話",address:"地址",state:"州",map:"地圖",note:"備註",on:"前台"};
+function adLabel(s){ s=String(s||"").replace(/\s+/g," ").trim(); for(var i=0;i<AD_LABELS.length;i++) if(AD_LABELS[i][1].test(s)) return AD_LABELS[i][0]; return ""; }
+var ST_WORDS=[
+  ["johor",/johor(e)?|柔佛|新山/i],["kedah",/kedah|吉打/i],["kelantan",/kelantan|吉蘭丹|吉兰丹/i],["melaka",/melaka|malacca|馬六甲|马六甲/i],
+  ["nsembilan",/negeri sembilan|n\.? ?sembilan|森美蘭|森美兰/i],["pahang",/pahang|彭亨/i],["penang",/pulau pinang|p\.? ?pinang|penang|檳城|槟城/i],
+  ["perak",/perak|霹靂|霹雳/i],["perlis",/perlis|玻璃市/i],["sabah",/sabah|沙巴/i],["sarawak",/sarawak|砂拉越|砂勞越|砂劳越/i],
+  ["selangor",/selangor|雪蘭莪|雪兰莪/i],["terengganu",/terengganu|trengganu|登嘉樓|登嘉楼|丁加奴/i],
+  ["wp",/kuala lumpur|putrajaya|labuan|wilayah persekutuan|w\.? ?p\.?|\bkl\b|吉隆坡|布城|納閩|纳闽|聯邦直轄區|联邦直辖区/i]
+];
+/* 地址裡寫了哪一州（取最後出現的那個，地址最後一段通常是州）；都沒寫就看郵區編號 */
+function adStateOf(text){
+  var t=String(text||""), best="", pos=-1;
+  ST_WORDS.forEach(function(s){
+    var src=s[1].source.split("|").map(function(w){ return /^[a-z]/i.test(w)?"\\b(?:"+w+")\\b":w; }).join("|");
+    var re=new RegExp(src,"gi"), m;
+    while((m=re.exec(t))){ if(m.index>=pos){ pos=m.index; best=s[0]; } if(!m[0]) re.lastIndex++; }
+  });
+  if(best) return best;
+  var pc=t.match(/\b\d{5}\b/g); return pc?adStateOfPostcode(+pc[pc.length-1]):"";
+}
+function adStateOfPostcode(n){
+  var R=[[1000,2999,"perlis"],[5000,9999,"kedah"],[10000,14999,"penang"],[15000,18999,"kelantan"],[20000,24999,"terengganu"],[25000,28999,"pahang"],
+    [30000,36999,"perak"],[39000,39999,"pahang"],[40000,48999,"selangor"],[49000,49999,"pahang"],[50000,62999,"wp"],[63000,68999,"selangor"],
+    [69000,69999,"pahang"],[70000,73999,"nsembilan"],[75000,78999,"melaka"],[79000,86999,"johor"],[87000,87999,"wp"],[88000,91999,"sabah"],[93000,98999,"sarawak"]];
+  for(var i=0;i<R.length;i++) if(n>=R[i][0]&&n<=R[i][1]) return R[i][2];
+  return "";
+}
+var AD_PHONE=/(?:\+?60[\s-]?|0)[1-9](?:[\s.\-]?\d){6,9}(?!\d)/g;
+var AD_CO=/sdn\.?\s*bhd|\bbhd\b|enterprise|\bent\b\.?|trading|\bagro|\bagri|plantation|suppl(y|ies)|resources|industr(y|ies)|fertili[sz]er|\bbaja\b|\bplt\b|\bco\.|company|holdings|marketing|services|hardware|kedai|公司|有限|農業|农业|肥料|貿易|贸易|企業|企业|商行|五金|農藥|农药|行$/i;
+var AD_ADDR=/\b(jalan|jln|lorong|lrg|lot|no\.?\s*\d|taman|tmn|kampung|kampong|kg|batu|bandar|persiaran|lebuh|lebuhraya|simpang|felda|pekan|bt|km|pt|mukim|blok|block|ptd)\b|\b\d{5}\b|路|街|號|号|花園|花园|新村|巴剎|巴刹|鎮|镇/i;
+function adKind(s){
+  if(/https?:\/\/\S*(map|goo\.gl)/i.test(s)) return "map";
+  if(/\b\d{5}\b/.test(s)||/^(no\.?\s*\d|lot\b|jalan\b|jln\b|lorong\b|batu\b|kg\.?\s|kampung\b|pt\b|ptd\b)/i.test(s)) return "address";
+  if(AD_CO.test(s)) return "company";
+  if(AD_ADDR.test(s)) return "address";
+  return "";
+}
+function adHas(d){ return !!(d.name||d.company||d.phone||d.address); }
+function adBlock(lines){
+  var d={name:"",company:"",phone:"",address:"",state:"",map:"",note:"",on:true}, phones=[], addr=[], notes=[], cur="";
+  function url(t){ var m=String(t).match(/https?:\/\/\S+/); return m?m[0]:String(t).trim(); }
+  /* 「Ah Seng · Seng Fatt Agro」這種一行寫兩樣的，先拆開（有「標籤：」的那行不拆） */
+  lines=[].concat.apply([],lines.map(function(l){ l=String(l==null?"":l); return /^[^:：]{1,24}[:：]/.test(l)&&!/^\s*https?:/i.test(l)?[l]:l.split(/\s+[·|｜]\s+/); }));
+  function put(k,t){
+    if(k==="name"){ if(!d.name) d.name=t; else notes.push(t); }
+    else if(k==="company"){ if(!d.company) d.company=t; else notes.push(t); }
+    else if(k==="address") addr.push(t);
+    else if(k==="state") d.state=adStateOf(t)||d.state;
+    else if(k==="map") d.map=d.map||url(t);
+    else if(k==="note") notes.push(t);
+    else if(k==="on") d.on=!/隱藏|隐藏|hidden|hide|sembunyi|^no$|^n$|^0$|false|^不/i.test(t);
+  }
+  lines.forEach(function(raw,li){
+    var line=String(raw==null?"":raw).replace(/\u00a0/g," ").replace(/^[\s>*•·]+/,"").trim();
+    if(li===0) line=line.replace(/^\d{1,3}[.)、]\s+/,"");
+    if(!line) return;
+    var m=line.match(/^([^:：]{1,24}?)\s*[:：]\s*(.*)$/), k=m&&!/^https?$/i.test(m[1].trim())?adLabel(m[1]):"";
+    if(k){ cur=k; line=m[2].trim(); if(!line) return; }
+    var ph=[], l2=line.replace(/\s*-\s*/g,"-").replace(AD_PHONE,function(x){ ph.push(x.trim()); return " "; });
+    if(k==="phone"||(!k&&cur==="phone"&&ph.length)){ phones=phones.concat(ph.length?ph:[line]); cur=""; return; }
+    phones=phones.concat(ph);
+    var txt=ph.length?l2.replace(/\b(tel|hp|h\/p|phone|mobile|whatsapp|wa|fax)\b\.?\s*[:：]?/ig," ").replace(/\s{2,}/g," ").replace(/^[\s,;\/|:：\-–()]+|[\s,;\/|:：\-–(]+$/g,"").trim():line;
+    if(!txt) return;
+    if(k){ put(k,txt); if(k!=="address"&&k!=="note") cur=""; return; }
+    var kind=adKind(txt);
+    if(cur==="address"&&kind!=="company"&&kind!=="map"){ addr.push(txt); return; }
+    if(cur==="note"){ notes.push(txt); return; }
+    cur="";
+    if(kind==="map"){ d.map=d.map||url(txt); return; }
+    if(kind==="company"&&!d.company){ d.company=txt; return; }
+    if(kind==="address"){ addr.push(txt); return; }
+    if(!d.name){ d.name=txt; return; }
+    if(!d.company){ d.company=txt; return; }
+    if(addr.length) addr.push(txt); else notes.push(txt);
+  });
+  var seen={}; d.phone=phones.filter(function(p){ var k2=p.replace(/\D/g,"").slice(-9); if(seen[k2]) return false; seen[k2]=1; return true; }).join(" / ");
+  d.address=addr.join(", ").replace(/\s*,\s*,+/g,",").replace(/,\s*$/,"").replace(/\s+/g," ").trim();
+  d.note=notes.join("；");
+  if(!d.state) d.state=adStateOf(d.address);
+  return d;
+}
+function adCells(line,sep){
+  if(sep==="\t") return line.split("\t").map(function(c){ return c.replace(/^"|"$/g,"").replace(/""/g,'"').trim(); });
+  var out=[], c="", q=false;
+  for(var i=0;i<line.length;i++){ var ch=line[i];
+    if(q){ if(ch==='"'&&line[i+1]==='"'){ c+='"'; i++; } else if(ch==='"') q=false; else c+=ch; }
+    else if(ch==='"') q=true; else if(ch===","){ out.push(c.trim()); c=""; } else c+=ch; }
+  out.push(c.trim()); return out;
+}
+function adTable(lines,sep){
+  var rows=lines.filter(function(l){ return l.trim(); }).map(function(l){ return adCells(l,sep); }), out=[];
+  if(!rows.length) return out;
+  var head=rows[0].map(adLabel), isHead=head.filter(Boolean).length>=2;
+  (isHead?rows.slice(1):rows).forEach(function(r){
+    var ls=r.map(function(c,i){ return isHead&&head[i]?AD_CANON[head[i]]+": "+c:c; }).filter(function(x){ return String(x).replace(/^[^:]*:\s*$/,"").trim(); });
+    var d=adBlock(ls); if(adHas(d)) out.push(d);
+  });
+  return out;
+}
+function adVcf(text){
+  var out=[];
+  text=text.replace(/=\n/g,"").replace(/\n[ \t]/g,"");
+  text.split(/BEGIN:VCARD/i).slice(1).forEach(function(card){
+    var ls=[];
+    card.split("\n").forEach(function(l){
+      var m=l.match(/^([^:]+):(.*)$/); if(!m) return;
+      var key=m[1].split(";")[0].toUpperCase().replace(/^ITEM\d+\./,""), v=m[2];
+      if(/QUOTED-PRINTABLE/i.test(m[1])){ try{ v=decodeURIComponent(v.replace(/=([0-9A-F]{2})/gi,"%$1")); }catch(e){} }
+      v=v.replace(/\\n/gi," ").replace(/\\,/g,",").replace(/\\;/g,";").trim();
+      if(key==="FN") ls.push("名字: "+v);
+      else if(key==="ORG") ls.push("公司: "+v.split(";").filter(Boolean).join(" "));
+      else if(key==="TEL") ls.push("電話: "+v);
+      else if(key==="ADR") ls.push("地址: "+v.split(";").map(function(x){ return x.trim(); }).filter(Boolean).join(", "));
+      else if(key==="URL"&&/map|goo\.gl/i.test(v)) ls.push("地圖: "+v);
+      else if(key==="NOTE") ls.push("備註: "+v);
+    });
+    var d=adBlock(ls); if(adHas(d)) out.push(d);
+  });
+  return out;
+}
+/* 主入口：自己判斷是 .vcf、表格（Excel 複製／CSV）、還是一般訊息（一家一段，空一行分開） */
+function parseAds(text){
+  text=String(text||"").replace(/\r\n?/g,"\n").replace(/\uFEFF/g,"");
+  if(/BEGIN:VCARD/i.test(text)) return adVcf(text);
+  var lines=text.split("\n");
+  if(lines.some(function(l){ return l.indexOf("\t")>=0; })) return adTable(lines,"\t");
+  var first=""; for(var i=0;i<lines.length;i++) if(lines[i].trim()){ first=lines[i]; break; }
+  if(first.indexOf(",")>=0&&adCells(first,",").map(adLabel).filter(Boolean).length>=2) return adTable(lines,",");
+  var blocks=[], cur=[];
+  lines.forEach(function(l){
+    var t=l.trim();
+    if(!t||/^[-=_~*·•]{3,}$/.test(t)){ if(cur.length){ blocks.push(cur); cur=[]; } return; }
+    if(/^\d{1,3}[.)、]\s+\S/.test(t)&&cur.length){ blocks.push(cur); cur=[]; }
+    cur.push(l);
+  });
+  if(cur.length) blocks.push(cur);
+  var ds=blocks.map(adBlock).filter(adHas), out=[];
+  /* 一家被空行切成好幾段時接回去：沒有電話的那一段，接到前一家（前一家還沒地址、這段像地址）或後一家（後一家有電話但沒名字） */
+  for(var j=0;j<ds.length;j++){
+    var d=ds[j], prev=out[out.length-1], next=ds[j+1];
+    if(d.phone||!prev&&!next){ out.push(d); continue; }
+    if(prev&&!prev.address&&d.address&&!d.name){ adMerge(prev,d); continue; }
+    if(next&&next.phone&&!next.name&&!next.company){ adMerge(d,next); ds[j+1]=d; continue; }
+    if(prev) adMerge(prev,d); else out.push(d);
+  }
+  return out;
+}
+function adMerge(a,b){
+  ["name","company","map","state"].forEach(function(k){ if(!a[k]&&b[k]) a[k]=b[k]; else if(b[k]&&a[k]!==b[k]&&(k==="name"||k==="company")) a.note=(a.note?a.note+"；":"")+b[k]; });
+  if(b.phone) a.phone=a.phone?a.phone+" / "+b.phone:b.phone;
+  if(b.address) a.address=a.address?a.address+", "+b.address:b.address;
+  if(b.note) a.note=a.note?a.note+"；"+b.note:b.note;
+  if(!a.state) a.state=adStateOf(a.address);
+  return a;
+}
+/* DEALER-PARSE-END */
+
+function adEmbed(d){ var m=String(d.map||"").match(/@(-?\d+\.\d+),(-?\d+\.\d+)/)||String(d.map||"").match(/[?&]q=(-?\d+\.\d+),\s*(-?\d+\.\d+)/);
+  var q=m?m[1]+","+m[2]:String(d.address||"")+(/malaysia/i.test(d.address||"")?"":", Malaysia");
+  return "https://maps.google.com/maps?q="+encodeURIComponent(q)+"&z=14&output=embed"; }
+function adNav(d){ return /^https?:\/\//.test(d.map||"")?d.map:"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent([d.company,d.address].filter(Boolean).join(" ")); }
+/* 更新已經有的那一家：電話不覆蓋，舊的新的合起來（同一個號碼只留一次） */
+function adPhones(a,b){ var seen={}, out=[]; (String(a||"")+"/"+String(b||"")).split("/").forEach(function(x){ x=x.trim(); var k=x.replace(/\D/g,"").slice(-9); if(x&&!seen[k]){ seen[k]=1; out.push(x); } }); return out.join(" / "); }
+function adKey(p){ return String(p||"").split("/")[0].replace(/\D/g,"").slice(-9); }
+function adId(){ return "d_"+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+function flash(t){ var f=el("div","flash",t); document.body.appendChild(f); setTimeout(function(){ f.remove(); },2600); }
+
+var ADS=null, ADS_ERR="", AV={st:""};
+function demoAds(){ return [
+  {id:"d_demo1",company:"亚福肥料行",name:"陈亚福",phone:"012-765 4321",address:"No. 12, Jalan Mersing, 86000 Kluang, Johor",state:"johor",map:"",note:"Sato Kali Special、Kieserite · 送货到芭",on:true},
+  {id:"d_demo2",company:"Seng Fatt Agro Sdn Bhd",name:"Ah Seng",phone:"07-772 1234 / 019-778 8899",address:"Lot 2231, Jalan Batu Pahat, 86100 Ayer Hitam, Johor",state:"johor",map:"",note:"",on:true},
+  {id:"d_demo3",company:"Kedai Baja Rahman",name:"Encik Rahman",phone:"013-912 3344",address:"No 5, Jalan Besar, 27600 Raub, Pahang",state:"pahang",map:"",note:"",on:false}]; }
+function adSaveLocal(){ try{ localStorage.setItem("op-admin-demo-ads",JSON.stringify(ADS)); }catch(e){} }
+function loadAds(){
+  if(DEMO){ try{ ADS=JSON.parse(localStorage.getItem("op-admin-demo-ads")||"null"); }catch(e){} if(!ADS) ADS=demoAds(); ADS_ERR=""; return Promise.resolve(); }
+  return firebase.firestore().collection("dealers").get().then(function(q){
+    ADS=[]; q.forEach(function(doc){ var o=doc.data()||{}; o.id=doc.id; ADS.push(o); }); ADS_ERR="";
+  }).catch(function(e){ ADS=[]; ADS_ERR=String(e&&e.code||e); });
+}
+function adClean(d){ var o={}; AD_FIELDS.forEach(function(k){ o[k]=k==="on"?d.on!==false:String(d[k]==null?"":d[k]).trim().slice(0,600); }); o.updatedAt=new Date().toISOString(); o.by=ME; return o; }
+/* 存一家或好幾家（匯入）：一次最多 400 筆一批 */
+function adSave(list){
+  list=list.map(function(d){ var o=adClean(d); o.id=d.id||adId(); return o; });
+  list.forEach(function(o){ var hit=false; for(var i=0;i<ADS.length;i++) if(ADS[i].id===o.id){ ADS[i]=o; hit=true; } if(!hit) ADS.push(o); });
+  if(DEMO){ adSaveLocal(); return Promise.resolve(); }
+  var db=firebase.firestore(), jobs=[];
+  for(var i=0;i<list.length;i+=400){
+    var b=db.batch();
+    list.slice(i,i+400).forEach(function(o){ var c={}; for(var k in o) if(k!=="id") c[k]=o[k]; b.set(db.collection("dealers").doc(o.id),c); });
+    jobs.push(b.commit());
+  }
+  return Promise.all(jobs);
+}
+function adDelete(d){
+  ADS=ADS.filter(function(x){ return x.id!==d.id; });
+  if(DEMO){ adSaveLocal(); return Promise.resolve(); }
+  return firebase.firestore().collection("dealers").doc(d.id).delete();
+}
+/* 前台被點了幾次（App 送上來的使用次數：ad:call:編號、ad:map:編號） */
+function adClicks(id){ var c=0, m=0; DATA.forEach(function(x){ var u=x.user.usage||{}; Object.keys(u).forEach(function(k){ var ev=k.slice(11); if(ev==="ad:call:"+id) c+=num(u[k]); else if(ev==="ad:map:"+id) m+=num(u[k]); }); }); return [c,m]; }
+function adErrMsg(e){ var c=String(e&&e.code||e); return /permission/.test(c)?L("存不進去：Firestore 的 Rules 還沒換成有肥料廣告商的那一版。"):L("存不進去：")+c; }
+
+function drawAds(ct){
+  if(ADS===null){ ct.appendChild(el("div","spin",L("讀取資料中…"))); loadAds().then(function(){ if(V.page==="ads"&&!V.detail) draw(); }); return; }
+  if(ADS_ERR){
+    var pe=panel(ct,L("讀不到資料：")+ADS_ERR), pbe=el("div","pb");
+    pbe.textContent=/permission/.test(ADS_ERR)?L("Firestore 的 Rules 還沒換成有肥料廣告商的那一版。"):L("重新整理");
+    pe.appendChild(pbe);
+  }
+  var cnt={}; ADS.forEach(function(d){ cnt[d.state||""]=(cnt[d.state||""]||0)+1; });
+  var shown=ADS.filter(function(d){ return d.on!==false; }).length, have=STATES.filter(function(s){ return cnt[s[0]]; }).length;
+  kpis(ct,[[L("廣告商"),fx(ADS.length),L("全部")],[L("前台顯示中"),fx(shown),fx(ADS.length-shown)+" "+L("家隱藏")],[L("有廣告的州"),have+" / 14",""],[L("還沒有廣告的州"),fx(14-have),""]]);
+  var ps=panel(ct,L("馬來西亞 14 個州"),L("點一州只看那一州；再點一次看全部")), tiles=el("div","sttiles");
+  STATES.forEach(function(s){
+    var b=el("button","stt"+(cnt[s[0]]?" has":"")+(AV.st===s[0]?" on":"")); b.type="button";
+    b.title=stName(s[0]); b.appendChild(el("b",null,stName(s[0]))); b.appendChild(el("span",null,cnt[s[0]]?fx(cnt[s[0]])+" "+L("家"):L("還沒有")));
+    b.onclick=function(){ AV.st=AV.st===s[0]?"":s[0]; draw(); }; tiles.appendChild(b);
+  });
+  ps.appendChild(tiles);
+  if(cnt[""]){ var nb=el("div","pb muted",L("沒填州的")+"："+cnt[""]+" "+L("家")+" — "+L("前台看不到，請點進去選州。")); ps.appendChild(nb); }
+  var q=V.q.trim().toLowerCase();
+  var list=ADS.filter(function(d){ if(AV.st&&d.state!==AV.st) return false; if(!q) return true; return [d.name,d.company,d.phone,d.address,stName(d.state),d.note].join(" ").toLowerCase().indexOf(q)>=0; })
+    .sort(function(a,b){ return stIdx(a.state)-stIdx(b.state)||String(a.company||a.name).localeCompare(String(b.company||b.name)); });
+  var p=panel(ct,L("廣告商名單")+(AV.st?" · "+stName(AV.st):""),fx(list.length)+" "+L("家")), h=p.querySelector(".ph");
+  var imp=el("button","tbtn",L("匯入（貼上或選檔案）")); imp.onclick=function(){ adImport(); }; h.appendChild(imp);
+  var add=el("button","tbtn pri",L("＋ 新增一家")); add.onclick=function(){ adForm(null); }; h.appendChild(add);
+  simpleTable(p,[L("州"),L("公司名字"),L("名字"),L("電話"),L("地址"),L("前台"),L("被點"),""],list.map(function(d){
+    var ad=el("span"); ad.textContent=d.address||"—";
+    var tg=el("span","tag "+(d.on!==false?"g":""),d.on!==false?L("顯示"):L("隱藏"));
+    var ck=adClicks(d.id), cl=el("span","muted num","📞 "+ck[0]+" · 🗺 "+ck[1]);
+    var act=el("span"), ed=el("button","tbtn sm",L("修改")); ed.onclick=function(e){ e.stopPropagation(); adForm(d); }; act.appendChild(ed);
+    return [stName(d.state)||L("沒填州"),d.company,d.name,d.phone,ad,tg,cl,act];
+  }),[],function(i){ adForm(list[i]); });
+  var trs=p.querySelectorAll("tbody tr"); [].forEach.call(trs,function(tr){ var td=tr.children[4]; if(td) td.className="wrap"; });
+  if(!ADS.length) p.appendChild(el("div","pb muted",L("還沒有廣告商。按「匯入」，把廣告商傳給你的資料整段貼進來就好。")));
+}
+function modal(title,wide){
+  var m=el("div","modal"), b=el("div","mbox"+(wide?" wide":"")), h=el("div","mh");
+  h.appendChild(el("h2",null,title)); var x=el("button","x","×"); x.type="button"; x.setAttribute("aria-label",L("關掉")); h.appendChild(x); b.appendChild(h);
+  var body=el("div","mb"), foot=el("div","mf"); b.appendChild(body); b.appendChild(foot); m.appendChild(b); document.body.appendChild(m);
+  function close(){ m.remove(); } x.onclick=close;
+  return {m:m,box:b,title:h.querySelector("h2"),body:body,foot:foot,close:close};
+}
+function fld(host,label,input,hint){ var w=el("label","fld"), s=el("span",null,label); if(hint){ s.appendChild(document.createTextNode(" ")); s.appendChild(el("em",null,hint)); } w.appendChild(s); w.appendChild(input); host.appendChild(w); return input; }
+function stSelect(v,blank){ var s=el("select"); var o0=el("option",null,blank||L("— 選州 —")); o0.value=""; s.appendChild(o0);
+  STATES.forEach(function(st){ var o=el("option",null,stName(st[0])); o.value=st[0]; if(st[0]===v) o.selected=true; s.appendChild(o); }); s.value=v||""; return s; }
+/* 新增／修改一家：原畫面直接開視窗，地址打好下面就出 Google 地圖確認位置 */
+function adForm(d){
+  var isNew=!d; d=d||{id:"",name:"",company:"",phone:"",address:"",state:AV.st||"",map:"",note:"",on:true};
+  var M=modal(isNew?L("新增肥料廣告商"):L("修改肥料廣告商")), B=M.body;
+  var r1=el("div","frow"); B.appendChild(r1);
+  var co=fld(r1,L("公司名字"),el("input")); co.value=d.company||"";
+  var nm=fld(r1,L("名字"),el("input"),L("聯絡人")); nm.value=d.name||"";
+  var r2=el("div","frow"); B.appendChild(r2);
+  var ph=fld(r2,L("電話"),el("input"),L("好幾個用 / 分開")); ph.value=d.phone||""; ph.inputMode="tel";
+  var st=fld(r2,L("州"),stSelect(d.state),L("照地址自動選"));
+  var ad=fld(B,L("地址"),el("textarea")); ad.value=d.address||"";
+  var mp=fld(B,L("Google 地圖連結"),el("input"),L("可以不填；有的話導航更準")); mp.value=d.map||""; mp.placeholder="https://maps.app.goo.gl/…";
+  var nt=fld(B,L("賣什麼／備註"),el("input"),L("可以不填，前台會顯示")); nt.value=d.note||"";
+  var box=el("div","mapbox",L("打了地址，這裡會出現地圖")); B.appendChild(box);
+  var onw=el("label","ckline"), on=el("input"); on.type="checkbox"; on.checked=d.on!==false; onw.appendChild(on); onw.appendChild(document.createTextNode(L("在前台顯示"))); onw.style.marginTop="12px"; B.appendChild(onw);
+  var stTouched=!!d.state, tm=null, lastQ="";
+  st.onchange=function(){ stTouched=true; };
+  function paintMap(){ var x={address:ad.value.trim(),map:mp.value.trim()}; if(!x.address&&!x.map){ box.innerHTML=""; box.textContent=L("打了地址，這裡會出現地圖"); lastQ=""; return; }
+    var u=adEmbed(x); if(u===lastQ) return; lastQ=u; box.innerHTML=""; var f=el("iframe"); f.loading="lazy"; f.referrerPolicy="no-referrer-when-downgrade"; f.src=u; f.title="map"; box.appendChild(f); }
+  ad.oninput=mp.oninput=function(){ if(!stTouched){ var g=adStateOf(ad.value); if(g) st.value=g; } clearTimeout(tm); tm=setTimeout(paintMap,700); };
+  paintMap();
+  var err=el("span","formerr"); M.foot.appendChild(err);
+  if(!isNew){ var del=el("button","tbtn dng",L("刪除")); del.onclick=function(){ if(!confirm(L("確定刪除這一家？前台也會不見。"))) return; adDelete(d).then(function(){ M.close(); draw(); flash(L("刪掉了")); }).catch(function(e){ err.textContent=adErrMsg(e); }); }; M.foot.appendChild(del); }
+  M.foot.appendChild(el("span","sp"));
+  var nav=el("button","tbtn",L("在 Google 地圖打開")); nav.onclick=function(){ window.open(adNav({company:co.value,address:ad.value,map:mp.value}),"_blank","noopener"); }; M.foot.appendChild(nav);
+  var cc=el("button","tbtn",L("取消")); cc.onclick=M.close; M.foot.appendChild(cc);
+  var sv=el("button","tbtn pri",L("存起來")); M.foot.appendChild(sv);
+  sv.onclick=function(){
+    var o={id:d.id,company:co.value,name:nm.value,phone:ph.value,address:ad.value,state:st.value,map:mp.value,note:nt.value,on:on.checked};
+    if(!o.company.trim()&&!o.name.trim()){ err.textContent=L("公司名字和名字至少填一個"); co.focus(); return; }
+    if(!o.state){ err.textContent=L("請選州，前台是照州顯示的"); st.focus(); return; }
+    sv.disabled=true; err.textContent="";
+    adSave([o]).then(function(){ M.close(); draw(); flash(L("存好了，前台已經看得到")); }).catch(function(e){ sv.disabled=false; err.textContent=adErrMsg(e); });
+  };
+  co.focus();
+}
+/* 匯入：貼一段字或選檔案 → 先給你看整理好的表（可以改）→ 按一下全部存進去 */
+function adImport(){
+  var M=modal(L("匯入肥料廣告商"),true), B=M.body;
+  var hb=el("div","hintbox");
+  hb.innerHTML="<b>"+L("把廣告商傳給你的資料整段貼進來")+"</b>"+L("（WhatsApp 訊息、名片上的字、Excel 複製都可以）。")+"<br>"+
+    L("一次可以貼很多家，每家中間空一行。名字、公司、電話、地址、州會自己認出來，存進去以前會先給你看。")+"<br>"+
+    L("也可以選手機傳來的聯絡人檔（.vcf）或 Excel 存的 CSV。");
+  B.appendChild(hb);
+  var wrap=el("div","imp"), ta=el("textarea"); wrap.appendChild(ta); B.appendChild(wrap);
+  ta.placeholder=L("例如：")+"\n陈亚福\n亚福肥料行\n012-765 4321\nNo. 12, Jalan Mersing, 86000 Kluang, Johor\n\nAh Seng · Seng Fatt Agro Sdn Bhd\nTel: 07-772 1234\nLot 2231, Jalan Batu Pahat, 86100 Ayer Hitam";
+  var err=el("span","formerr");
+  var fb=el("label","tbtn filebtn"); fb.appendChild(document.createTextNode(L("選檔案（.vcf / .csv / .txt）"))); var fi=el("input"); fi.type="file"; fi.accept=".vcf,.csv,.txt,text/vcard,text/csv,text/plain"; fi.multiple=true; fb.appendChild(fi);
+  fi.onchange=function(){ var fs=[].slice.call(fi.files||[]); if(!fs.length) return; var got=[];
+    fs.forEach(function(f,i){ var r=new FileReader(); r.onload=function(){ got[i]=String(r.result||""); if(got.filter(function(x){ return x!=null; }).length===fs.length){ ta.value=(ta.value.trim()?ta.value.trim()+"\n\n":"")+got.join("\n\n"); step2(); } }; r.readAsText(f); }); };
+  M.foot.appendChild(fb); M.foot.appendChild(err); M.foot.appendChild(el("span","sp"));
+  var cc=el("button","tbtn",L("取消")); cc.onclick=M.close; M.foot.appendChild(cc);
+  var go=el("button","tbtn pri",L("整理一下 →")); M.foot.appendChild(go);
+  go.onclick=step2; ta.focus();
+  function step2(){
+    var rows=parseAds(ta.value);
+    if(!rows.length){ err.textContent=L("認不出任何一家，先貼上資料"); return; }
+    err.textContent="";
+    rows.forEach(function(r){ var k=adKey(r.phone); r._old=null; if(k.length>=7) for(var i=0;i<ADS.length;i++) if(adKey(ADS[i].phone)===k){ r._old=ADS[i]; r.id=ADS[i].id; break; } });
+    var B2=el("div"); M.body.style.display="none"; M.box.insertBefore(B2,M.foot); B2.className="mb";
+    M.title.textContent=L("看一下，對了就存進去")+"（"+rows.length+" "+L("家")+"）";
+    var note=el("div","hintbox",L("每一格都可以直接改。紅色是缺的：沒有州的前台看不到。電話跟已經有的一樣，會更新那一家，不會變兩家。")); B2.appendChild(note);
+    var tw=el("div","tw"), t=el("table","prev"), th=el("thead"), hr=el("tr");
+    ["",L("州"),L("公司名字"),L("名字"),L("電話"),L("地址"),L("賣什麼／備註"),L("狀態"),""].forEach(function(x){ hr.appendChild(el("th",null,x)); }); th.appendChild(hr); t.appendChild(th);
+    var tb=el("tbody"); t.appendChild(tb); tw.appendChild(t); B2.appendChild(tw);
+    function paint(){
+      tb.innerHTML="";
+      rows.forEach(function(r,i){
+        var tr=el("tr"); tr.appendChild(el("td","muted num",String(i+1)));
+        function inp(k,cls){ var td=el("td",cls||""), x=el("input"); x.value=r[k]||""; x.oninput=function(){ r[k]=x.value; if(k==="address"&&!r._stTouched){ var g=adStateOf(x.value); if(g){ r.state=g; s.value=g; s.className=""; } } mark(); }; td.appendChild(x); tr.appendChild(td); return x; }
+        var tds=el("td"), s=stSelect(r.state); s.className=r.state?"":"miss"; s.onchange=function(){ r.state=s.value; r._stTouched=true; s.className=r.state?"":"miss"; mark(); }; tds.appendChild(s); tr.appendChild(tds);
+        var c1=inp("company"), c2=inp("name"), c3=inp("phone"), c4=inp("address","ad"); inp("note");
+        var stt=el("td"); tr.appendChild(stt);
+        function mark(){ c1.className=c2.className=(!String(r.company).trim()&&!String(r.name).trim())?"miss":""; c3.className=String(r.phone).trim()?"":"miss";
+          stt.innerHTML=""; stt.appendChild(el("span","tag "+(r._old?"b":"g"),r._old?L("已經有，會更新"):L("新的"))); }
+        mark();
+        var tdx=el("td"), x=el("button","x","×"); x.type="button"; x.title=L("這一家不要"); x.onclick=function(){ rows.splice(i,1); paint(); sv.textContent=L("全部存進去")+"（"+rows.length+" "+L("家")+"）"; sv.disabled=!rows.length; }; tdx.appendChild(x); tr.appendChild(tdx);
+        tb.appendChild(tr);
+      });
+    }
+    paint();
+    M.foot.innerHTML="";
+    var err2=el("span","formerr");
+    var back=el("button","tbtn",L("← 回去改")); back.onclick=function(){ B2.remove(); M.body.style.display=""; M.title.textContent=L("匯入肥料廣告商"); M.foot.innerHTML=""; M.foot.appendChild(fb); M.foot.appendChild(err); M.foot.appendChild(el("span","sp")); M.foot.appendChild(cc); M.foot.appendChild(go); };
+    M.foot.appendChild(back); M.foot.appendChild(err2); M.foot.appendChild(el("span","sp"));
+    var cc2=el("button","tbtn",L("取消")); cc2.onclick=M.close; M.foot.appendChild(cc2);
+    var sv=el("button","tbtn pri",L("全部存進去")+"（"+rows.length+" "+L("家")+"）"); M.foot.appendChild(sv);
+    sv.onclick=function(){
+      var bad=rows.filter(function(r){ return !String(r.company).trim()&&!String(r.name).trim(); });
+      if(bad.length){ err2.textContent=L("有幾家公司名字和名字都是空的，填一下或按 × 拿掉"); return; }
+      var noSt=rows.filter(function(r){ return !r.state; }).length;
+      if(noSt&&!confirm(noSt+" "+L("家沒有選州，前台會看不到。還是要存嗎？"))) return;
+      var out=rows.map(function(r){ var o={}; AD_FIELDS.forEach(function(k){ o[k]=r[k]; }); if(r._old){ AD_FIELDS.forEach(function(k){ if(k!=="on"&&!String(o[k]||"").trim()) o[k]=r._old[k]||""; }); o.on=r._old.on!==false; o.phone=adPhones(r._old.phone,o.phone); } o.id=r.id||""; return o; });
+      sv.disabled=true; err2.textContent="";
+      adSave(out).then(function(){ M.close(); draw(); flash(L("匯入好了：")+out.length+" "+L("家")); }).catch(function(e){ sv.disabled=false; err2.textContent=adErrMsg(e); });
+    };
+  }
 }
 boot();
 })();
